@@ -163,8 +163,15 @@ public class PetRoom extends Room {
             System.out.println("Pet is Already Full!");
         } else if (getPlayer().getFood() > 0) {
             //Give Food
-            int foodScale = getPet().getLevel() * 10;
-            getPet().setHunger(getPet().getHunger() + foodScale);
+            int foodAmount = getPet().getHunger() + getPet().getLevel() * 10;
+            //Make Sure Hunger doesn't go Over 100
+            if (foodAmount > 100){
+                int returns = foodAmount - 100;
+                getPlayer().setFood(getPlayer().getFood() + returns);
+                getPet().setHunger(100);
+            } else {
+                getPet().setHunger(foodAmount);
+            }
             //Give EXP
             int expAmount = getPet().getLevel() * 25;
             getPet().setExp(getPet().getExp() + expAmount);
