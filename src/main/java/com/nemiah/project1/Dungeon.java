@@ -30,7 +30,7 @@ public class Dungeon extends Room {
     private final Random rand = new Random();
     private final FileParser parser = new FileParser();
 
-    //Dungeon Level
+    //Dungeon Variables
     private final int dungeonLevel;
     private boolean valid = false;
     private boolean roundStart = false;
@@ -39,7 +39,7 @@ public class Dungeon extends Room {
     private int placing;
     private int specialCounter;
 
-    //Temp Pet Stats
+    //Temp Entity Stats
     private final Pet dungeonPet;
     private int tempDefense;
     private boolean analyze;
@@ -130,7 +130,6 @@ public class Dungeon extends Room {
         System.out.println("---------------------");
         System.out.println(getPet().getName());
         System.out.println("HP : " + dungeonPet.getHealth() + "  |  Lvl : " + dungeonPet.getLevel());
-        System.out.println("HP : " + getPet().getHealth() + "  |  Lvl : " + getPet().getLevel());
         System.out.print("ATTACK  |   DEFEND  |   SPECIAL ATTACK ");
         //Print Special Charge
         for (int i = 0; i < specialCounter; i++) {

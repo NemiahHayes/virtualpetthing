@@ -156,11 +156,12 @@ public class Enemy extends Entity {
         int maxBound = 100;
         //Minimum Bounds
         int attackBound = 75;
-        int defendBound = 20;
-        int specialBound = 05;
+        int defendBound = 05;
+        int maxDefendBound = 50;
+        int specialBound = 15;
         //Set Rand Chances
         this.setAttackChance(rand.nextInt(maxBound) + attackBound);
-        this.setDefenseChance(rand.nextInt(maxBound) + defendBound);
+        this.setDefenseChance(rand.nextInt(maxDefendBound) + defendBound);
         this.setSpecialAttackChance(rand.nextInt(specialBound) + 1);
     }
 

@@ -16,6 +16,7 @@ public class CommandParser {
 
     private static final Set<Commands> commandList = new HashSet<>(EnumSet.allOf(Commands.class));
 
+    //Get Command List for Specific Rooms
     public static Set<Commands> getCommandList(State room) {
         Set<Commands> roomCommandList = new HashSet();
         commandList.stream().map(c -> {
@@ -29,7 +30,7 @@ public class CommandParser {
         return roomCommandList;
     }
 
-    //Interpret Command
+    //Interpret Command when called
     public static Commands parseCommand(String cmd, State state) {
         Set<Commands> roomList;
         roomList = getCommandList(state);
