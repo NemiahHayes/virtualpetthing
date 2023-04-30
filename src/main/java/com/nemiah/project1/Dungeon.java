@@ -74,7 +74,7 @@ public class Dungeon extends Room {
         dungeonPet.setMood(getPet().getMood());
     }
 
-    //Room Main Loop
+    /*Room Main Loop
     @Override
     protected void mainLoop() {
         while (this.getActive()) {
@@ -108,7 +108,7 @@ public class Dungeon extends Room {
                 }
             }
         }
-    }
+    }*/
 
     //Draw Screen
     private void printScreen() {

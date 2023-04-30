@@ -15,6 +15,11 @@ public class MainFrame extends javax.swing.JFrame {
      */
     public MainFrame() {
         initComponents();
+        
+        //Initialize Files
+        Startup startup = new Startup();
+        startup.initializeGame();
+        
         petRoomPanel.setVisible(false);
         dungeonPanel.setVisible(false);
         mainPanel.setVisible(true);
@@ -36,6 +41,7 @@ public class MainFrame extends javax.swing.JFrame {
         quitButton = new javax.swing.JButton();
         petRoomPanel = new javax.swing.JPanel();
         petRoomTitle = new javax.swing.JLabel();
+        feedButton = new javax.swing.JButton();
         dungeonPanel = new javax.swing.JPanel();
         dungeonTitle = new javax.swing.JLabel();
 
@@ -105,21 +111,34 @@ public class MainFrame extends javax.swing.JFrame {
         petRoomTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         petRoomTitle.setText("Pet Room");
 
+        feedButton.setText("Feed");
+        feedButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                feedButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout petRoomPanelLayout = new javax.swing.GroupLayout(petRoomPanel);
         petRoomPanel.setLayout(petRoomPanelLayout);
         petRoomPanelLayout.setHorizontalGroup(
             petRoomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(petRoomPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(petRoomTitle, javax.swing.GroupLayout.DEFAULT_SIZE, 1268, Short.MAX_VALUE)
+                .addComponent(petRoomTitle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
+            .addGroup(petRoomPanelLayout.createSequentialGroup()
+                .addGap(359, 359, 359)
+                .addComponent(feedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(775, Short.MAX_VALUE))
         );
         petRoomPanelLayout.setVerticalGroup(
             petRoomPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(petRoomPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(petRoomTitle)
-                .addContainerGap(650, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 403, Short.MAX_VALUE)
+                .addComponent(feedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(195, 195, 195))
         );
 
         dungeonTitle.setFont(new java.awt.Font("Segoe UI", 0, 48)); // NOI18N
@@ -173,8 +192,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void petRoomButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_petRoomButtonActionPerformed
         // TODO add your handling code here:
+        //Set Pet Room Code
         state = State.PETROOM;
         this.setContentPane(petRoomPanel);
+        PetRoomFrame petRoom = new PetRoomFrame();
+        petRoom.startRoom();
+        
+        //Set Panel Visible
         petRoomPanel.setVisible(true);
         dungeonPanel.setVisible(false);
         mainPanel.setVisible(false);
@@ -191,6 +215,11 @@ public class MainFrame extends javax.swing.JFrame {
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_quitButtonActionPerformed
+
+    private void feedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_feedButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_feedButtonActionPerformed
 
     private static State state;
     /**
@@ -231,6 +260,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton dungeonButton;
     private javax.swing.JPanel dungeonPanel;
     private javax.swing.JLabel dungeonTitle;
+    private javax.swing.JButton feedButton;
     private javax.swing.JPanel mainPanel;
     private javax.swing.JButton petRoomButton;
     private javax.swing.JPanel petRoomPanel;

@@ -150,8 +150,13 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="petRoomTitle" pref="1268" max="32767" attributes="0"/>
+                  <Component id="petRoomTitle" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
+              </Group>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="359" max="-2" attributes="0"/>
+                  <Component id="feedButton" min="-2" pref="146" max="-2" attributes="0"/>
+                  <EmptySpace pref="775" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -160,7 +165,9 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="petRoomTitle" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="650" max="32767" attributes="0"/>
+                  <EmptySpace pref="403" max="32767" attributes="0"/>
+                  <Component id="feedButton" min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="195" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -174,6 +181,14 @@
             <Property name="horizontalAlignment" type="int" value="0"/>
             <Property name="text" type="java.lang.String" value="Pet Room"/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="feedButton">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Feed"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="feedButtonActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

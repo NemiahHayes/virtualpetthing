@@ -21,15 +21,6 @@ public class StartMenu extends Room {
         super(State.MENU);
     }
 
-    //Main Menu Loop
-    @Override
-    protected void mainLoop() {
-        while (this.getActive()) {
-            printScreen();
-            getInput();
-        }
-    }
-
     //Print Menu
     private void printScreen() {
         System.out.println();

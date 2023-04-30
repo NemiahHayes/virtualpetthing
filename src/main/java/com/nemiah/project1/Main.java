@@ -40,7 +40,7 @@ public class Main {
                     break;
                 //Enter Pet Room
                 case PETROOM:
-                    PetRoom petRoom = new PetRoom();
+                    PetRoomFrame petRoom = new PetRoomFrame();
                     petRoom.startRoom();
                     break;
                 //Enter Dungeon

@@ -29,7 +29,6 @@ public abstract class Room {
     //Starts Room
     public void startRoom() {
         setActive(true);
-        mainLoop();
     }
 
     //Getter and Setter Methods
@@ -104,7 +103,7 @@ public abstract class Room {
         this.setActive(false);
     }
 
-    //Rooms Main loop
-    protected abstract void mainLoop();
+    //Rooms Main loop 
+    //protected abstract void mainLoop();
 
 }
