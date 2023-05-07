@@ -21,6 +21,8 @@ public class Main {
 
         MainFrame frame = new MainFrame();
         
+        frame.startUp();
+        /*
         //Set Loop Variable
         boolean play = true;
 
@@ -57,7 +59,7 @@ public class Main {
                 default:
                     break;
             }
-        }
+        }*/
     }
 
     //Set Game State
