@@ -5,8 +5,8 @@
  */
 package com.nemiah.project1;
 
+import com.nemiah.project1.gui.MainFrame;
 import java.io.IOException;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,6 +19,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
+        MainFrame frame = new MainFrame();
+        
         //Set Loop Variable
         boolean play = true;
 
