@@ -21,7 +21,17 @@ public class Main {
 
         MainFrame frame = new MainFrame();
         
-        frame.startUp();
+        //Validate Saves
+        state = State.STARTUP;
+        SaveChecker saveChecker = new SaveChecker();
+        boolean validateSave = saveChecker.validSave();
+        
+        if (!validateSave){
+            frame.startUp();
+        } else {
+            //Temporary
+            frame.startUp();
+        }
         /*
         //Set Loop Variable
         boolean play = true;
@@ -61,7 +71,7 @@ public class Main {
             }
         }*/
     }
-
+    
     //Set Game State
     public static void setState(State changeState) {
         state = changeState;
