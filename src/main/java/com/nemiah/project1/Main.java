@@ -23,8 +23,8 @@ public class Main {
         
         //Validate Saves
         state = State.STARTUP;
-        SaveChecker saveChecker = new SaveChecker();
-        boolean validateSave = saveChecker.validSave();
+        StartData startData = new StartData();
+        boolean validateSave = startData.validSave();
         
         if (!validateSave){
             frame.startUp();

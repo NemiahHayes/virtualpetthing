@@ -13,11 +13,11 @@ import java.util.Scanner;
  *
  * @author nemiah
  */
-public class StartMenu extends Room {
+public class StartMenuData extends Room {
 
     private boolean valid = false;
 
-    public StartMenu() {
+    public StartMenuData() {
         super(State.MENU);
     }
 

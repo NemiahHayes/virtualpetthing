@@ -1,9 +1,10 @@
 com\nemiah\project1\Entity.class
+com\nemiah\project1\SaveChecker.class
 com\nemiah\project1\Dungeon$1.class
 com\nemiah\project1\FileParser.class
 com\nemiah\project1\State.class
 com\nemiah\project1\Dungeon.class
-com\nemiah\project1\Main$1.class
+com\nemiah\project1\gui\Startup.class
 com\nemiah\project1\CommandParser.class
 com\nemiah\project1\Room.class
 com\nemiah\project1\Enemy$Type.class
@@ -16,5 +17,4 @@ com\nemiah\project1\Enemy.class
 com\nemiah\project1\Player.class
 com\nemiah\project1\Commands.class
 com\nemiah\project1\StartMenu$1.class
-com\nemiah\project1\Startup.class
 com\nemiah\project1\Main.class
