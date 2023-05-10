@@ -6,9 +6,6 @@
 package com.nemiah.project1;
 
 import static com.nemiah.project1.Commands.HELP;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 /**
  *
  * @author nemiah
@@ -19,34 +16,6 @@ public class StartMenuData extends Room {
 
     public StartMenuData() {
         super(State.MENU);
-    }
-
-    //Print Menu
-    private void printScreen() {
-        System.out.println();
-        System.out.println("                     : Dungeon Pet :");
-        System.out.println("    : Pet ");
-        System.out.println("    : Dungeon ");
-        System.out.println("    : Quit ");
-        System.out.println("This App is navigated with commands. Type 'help' to view the command list.");
-        System.out.println();
-    }
-
-    //Get Player Input
-    private void getInput() {
-        valid = false;
-        Scanner scanner = new Scanner(System.in);
-        while (!valid) {
-            valid = true;
-            String input = "";
-            try {
-                input = scanner.nextLine();
-            } catch (InputMismatchException e) {
-
-            }
-            Commands cmd = CommandParser.parseCommand(input, getState());
-            parseInput(cmd);
-        }
     }
 
     //Translate Command 
@@ -82,13 +51,13 @@ public class StartMenuData extends Room {
 
     //Command List
     //Go to Petroom - pet
-    private void toPetRoom() {
+    public void toPetRoom() {
         Main.setState(State.PETROOM);
         endRoom();
     }
 
     //Go to Dungeon - dungeon
-    private void toDungeon() {
+    public void toDungeon() {
         Main.setState(State.DUNGEON);
         endRoom();
     }

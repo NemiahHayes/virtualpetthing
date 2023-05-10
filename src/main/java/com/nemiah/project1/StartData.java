@@ -4,18 +4,25 @@
  */
 package com.nemiah.project1;
 
+import com.nemiah.project1.FileParser;
+import com.nemiah.project1.Main;
+import com.nemiah.project1.Pet;
+import com.nemiah.project1.Player;
+import com.nemiah.project1.Room;
+import com.nemiah.project1.State;
 import javax.swing.JTextField;
 
 /**
  *
  * @author nemiah
  */
-public class StartData {
+public class StartData extends Room {
 
     private final Player player;
     private final Pet pet;
 
-    public StartData() {
+    public StartData(){
+        super(State.STARTUP);
         player = Main.loadPlayer();
         pet = Main.loadPet();
     }

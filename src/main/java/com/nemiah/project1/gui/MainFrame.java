@@ -4,6 +4,7 @@
  */
 package com.nemiah.project1.gui;
 
+import com.nemiah.project1.State;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -24,15 +25,15 @@ import net.miginfocom.swing.MigLayout;
 public class MainFrame {
     
     private final int WINDOW_WIDTH = 400;
-    private final int WINDOW_HEIGHT = 800;
+    private final int WINDOW_HEIGHT = 600;
     public static JFrame frame;
     
     public MainFrame(){
         initialize();
     }
     
-    public void update(){
-        frame.repaint();
+    public void updateRoom(JPanel panel){
+        frame.add(panel, BorderLayout.CENTER);
     }
     
     private void initialize(){
@@ -47,14 +48,27 @@ public class MainFrame {
         frame.setResizable(false);     
      }
     
-    public void startUp(){
+    public void changePanel(State state){
+        if (state.equals(State.STARTUP)){
+            startUp();
+        } else if (state.equals(State.MENU)){
+            startMenu();
+        }
+    }
+    
+    private void startUp(){
         Startup startup = new Startup();
-        frame.add(startup.getPanel(), BorderLayout.CENTER);
+        updateRoom(startup.getPanel());
         frame.setVisible(true);
     }
     
     public void startMenu(){
-        
+        StartMenu startMenu = new StartMenu();
+        updateRoom(startMenu.getPanel());
+        frame.setVisible(true);
     }
     
+    public void dispose(){
+        frame.dispose();
+    }
 }

@@ -16,5 +16,38 @@ public enum State {
     //DUNGEON - Battle 
     //QUIT - End Game State
     //ALL - Command Specific, For Global Commands 
-    STARTUP, MENU, PETROOM, DUNGEON, QUIT, ALL;
+    STARTUP {
+        @Override
+        public Room getData() {
+            return new StartData();
+        }
+    }, MENU {
+        @Override
+        public Room getData() {
+            return new StartMenuData();
+        }
+    }, PETROOM {
+        @Override
+        public Room getData() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }, DUNGEON {
+        @Override
+        public Room getData() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }, QUIT {
+        @Override
+        public Room getData() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    }, ALL {
+        @Override
+        public Room getData() {
+            throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        }
+    };
+    
+    public abstract Room getData();
+        
 }

@@ -5,6 +5,11 @@
  */
 package com.nemiah.project1;
 
+import static com.nemiah.project1.State.DUNGEON;
+import static com.nemiah.project1.State.MENU;
+import static com.nemiah.project1.State.PETROOM;
+import static com.nemiah.project1.State.QUIT;
+import static com.nemiah.project1.State.STARTUP;
 import com.nemiah.project1.gui.MainFrame;
 import java.io.IOException;
 
@@ -16,10 +21,11 @@ public class Main {
 
     private static final FileParser parser = new FileParser();
     private static State state;
+    private static MainFrame frame;
 
     public static void main(String[] args) throws IOException {
 
-        MainFrame frame = new MainFrame();
+        frame = new MainFrame();
         
         //Validate Saves
         state = State.STARTUP;
@@ -27,54 +33,45 @@ public class Main {
         boolean validateSave = startData.validSave();
         
         if (!validateSave){
-            frame.startUp();
+            setPanel(State.STARTUP);
         } else {
             //Temporary
-            frame.startUp();
+            setPanel(State.MENU);
         }
-        /*
-        //Set Loop Variable
-        boolean play = true;
-
-        //Set Startup State, Files loaded in STARTUP
-        state = State.STARTUP;
-
-        //Start Game
-        while (play) {
-            switch (state) {
-                //Enter Startup
-                case STARTUP:
-                    Startup startup = new Startup();
-                    startup.initializeGame();
-                    break;
-                //Enter Main Menu
-                case MENU:
-                    StartMenu startMenu = new StartMenu();
-                    startMenu.startRoom();
-                    break;
-                //Enter Pet Room
-                case PETROOM:
-                    PetRoomFrame petRoom = new PetRoomFrame();
-                    petRoom.startRoom();
-                    break;
-                //Enter Dungeon
-                case DUNGEON:
-                    Dungeon dungeon = new Dungeon();
-                    dungeon.startRoom();
-                    break;
-                //Save and Quit
-                case QUIT:
-                    play = false;
-                    break;
-                default:
-                    break;
-            }
-        }*/
     }
     
+    public static void setPanel(State state){
+        switch (state) {
+            //Enter Startup
+            case STARTUP:
+                frame.changePanel(State.STARTUP);
+                break;
+            //Enter Main Menu
+            case MENU:
+                frame.changePanel(State.MENU);
+                break;
+            //Enter Pet Room
+            case PETROOM:
+                //Null
+                break;
+            //Enter Dungeon
+            case DUNGEON:
+                //Null
+                break;
+            //Save and Quit
+            case QUIT:
+                frame.dispose();
+                System.exit(0);
+                break;
+            default:
+                break;
+        }
+    }
+
     //Set Game State
     public static void setState(State changeState) {
         state = changeState;
+        setPanel(changeState);
     }
 
     //Load Player from File

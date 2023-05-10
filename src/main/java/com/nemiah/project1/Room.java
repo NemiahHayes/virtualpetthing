@@ -69,7 +69,7 @@ public abstract class Room {
     }
 
     //Stop Game
-    protected void stopGame() {
+    public void stopGame() {
         endRoom();
         Main.setState(State.QUIT);
         this.setActive(false);

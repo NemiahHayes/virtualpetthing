@@ -5,14 +5,13 @@
 package com.nemiah.project1.gui;
 
 import com.nemiah.project1.StartData;
+import com.nemiah.project1.State;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
-import net.miginfocom.swing.MigLayout;
 
 /**
  *
@@ -20,28 +19,20 @@ import net.miginfocom.swing.MigLayout;
  */
 public class Startup extends RoomGUI{
     
-    //Data Object for Room
-    private final StartData startData;
-    
-    //Colors
-    Color background;
-    Color text;
+    //Data
+    StartData startData;
     
     public Startup(){
         //Create Variables
+        super(State.STARTUP);
         startData = new StartData();
-        background = new Color(42,157,143);
-        text = new Color(255,255,255);
         
         //Create Panel
         startPanel();
     }
     
     @Override
-    protected JPanel initialize() {
-        //Create Panel
-        panel = new JPanel(new MigLayout("", "[center]", ""));
-
+    protected void initialize() {
         //Design Panel
         panel.setBackground(background);
 
@@ -60,15 +51,15 @@ public class Startup extends RoomGUI{
         JTextField petName = setTextField();
 
         //Design Button
-        JButton confirmButton = setConfirmButton();
         JLabel confirmLabel = new JLabel("");
+        JButton confirmButton = setGenericButton("Confirm");
         
         //Confirm Button Listener
         confirmButton.addActionListener((ActionEvent e) -> {
             //Validate Input and Update User Prompt
-            confirmLabel.setText(startData.validateInput(startData.validNames(playerName,petName)));
+            confirmLabel.setText(setConfirmLabelText(playerName, petName));
         });
-
+        
         //Add Elements to Panel
         panel.add(title, "wrap, cell 1 0");
         panel.add(askText, "wrap, cell 1 1");
@@ -78,8 +69,6 @@ public class Startup extends RoomGUI{
         panel.add(petName, "wrap, left, grow");
         panel.add(confirmButton, "wrap, cell 1 4");
         panel.add(confirmLabel, "cell 1 5");
-
-        return panel;
     }
     
     //Set Main Title
@@ -105,13 +94,9 @@ public class Startup extends RoomGUI{
         return new JTextField(15);
     }
     
-    //Confirm Button
-    private JButton setConfirmButton(){
-        JButton confirmButton = new JButton("Confirm");
-        confirmButton.setBorderPainted(true);
-        confirmButton.setFocusPainted(false);
-        confirmButton.setBackground(text);
-        
-        return confirmButton;
+    //Change Confirm Label
+    private String setConfirmLabelText(JTextField playerName, JTextField petName){
+        return startData.validateInput(startData.validNames(playerName,petName));
     }
+    
 }
