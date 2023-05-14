@@ -10,6 +10,7 @@ import com.nemiah.project1.Pet;
 import com.nemiah.project1.Player;
 import com.nemiah.project1.Room;
 import com.nemiah.project1.State;
+import com.nemiah.project1.database.DBParse;
 import javax.swing.JTextField;
 
 /**
@@ -18,22 +19,24 @@ import javax.swing.JTextField;
  */
 public class StartData extends Room {
 
-    private final Player player;
-    private final Pet pet;
+    private Player player;
+    private Pet pet;
+    DBParse dbParse;
 
     public StartData(){
         super(State.STARTUP);
         player = Main.loadPlayer();
         pet = Main.loadPet();
+        dbParse = new DBParse();
     }
 
-    public boolean validSave() {
-        if (player.getDungeonLevel() == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    public boolean validSave() {
+//        if (player.getDungeonLevel() == 0) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
 
     public boolean validateNames(String playerName, String petName) {
         //Validate Names
@@ -48,9 +51,9 @@ public class StartData extends Room {
     }
 
     private void setNames(String playerName, String petName) {
-        this.player.setName(playerName);
-        this.pet.setName(petName);
-        this.player.setDungeonLevel(1);
+        dbParse.setEntities(player, pet);
+        this.player = dbParse.getPlayer();
+        this.pet = dbParse.getPet();
         updateSave();
     }
 

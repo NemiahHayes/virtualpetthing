@@ -12,6 +12,7 @@ public class Pet extends Entity{
 
     //Misc. Stats
     private int exp, hunger, mood;
+    private String id;
 
     public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood) {
         setName(name);
@@ -25,8 +26,14 @@ public class Pet extends Entity{
         this.exp = exp;
         this.hunger = hunger;
         this.mood = mood;
+        this.id = createID();
     }
 
+    public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood, String id) {
+        this(name,health,attack,defense,specialAttack,specialDefense,luck,level,exp,hunger,mood);
+        this.id = id;
+    }
+    
     public Pet() {
         this.setDefault();
     }
@@ -50,6 +57,15 @@ public class Pet extends Entity{
 
     public int getExp() {
         return exp;
+    }
+    
+    public String getID(){
+        return this.id;
+    }
+    
+    //Set Pet ID
+    private String createID(){
+        return Main.loadPlayer().getName();
     }
     
     //Set EXP value

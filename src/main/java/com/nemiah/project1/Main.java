@@ -30,14 +30,7 @@ public class Main {
         //Validate Saves
         state = State.STARTUP;
         StartData startData = new StartData();
-        boolean validateSave = startData.validSave();
-        
-        if (!validateSave){
-            setPanel(State.STARTUP);
-        } else {
-            //Temporary
-            setPanel(State.MENU);
-        }
+        setPanel(State.STARTUP);
     }
     
     public static void setPanel(State state){
