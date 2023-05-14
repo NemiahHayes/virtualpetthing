@@ -35,7 +35,8 @@ public class DBMain {
             System.err.print(ex);
         }
     }
-
+    
+    //Close Database Connection
     public void closeConnections() {
         if (conn != null) {
             try {
