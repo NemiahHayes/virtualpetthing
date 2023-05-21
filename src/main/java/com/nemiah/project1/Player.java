@@ -5,14 +5,27 @@
  */
 package com.nemiah.project1;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Column;
 /**
  *
  * @author nemiah
  */
+@Entity
+@Table(name = "players")
 public class Player {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false)
     private String name;
+    @Column(nullable = false)
     private int dungeonLevel;
+    @Column(nullable = false)
     private int food;
 
     //Construct Player Class

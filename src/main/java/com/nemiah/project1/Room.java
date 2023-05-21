@@ -4,6 +4,7 @@
  */
 package com.nemiah.project1;
 
+import com.nemiah.project1.database.DBParse;
 import java.util.Set;
 
 /**
@@ -17,9 +18,11 @@ public abstract class Room {
     private Pet pet;
     private Set<Commands> commandList;
     protected State state;
+    private final DBParse dbParse;
 
     public Room(State state) {
         this.active = false;
+        this.dbParse = new DBParse();
         this.player = Main.loadPlayer();
         this.pet = Main.loadPet();
         setState(state);
@@ -71,7 +74,8 @@ public abstract class Room {
     //Stop Game
     public void stopGame() {
         endRoom();
-        Main.setState(State.QUIT);
+        dbParse.closeConnection();
+        Main.setPanel(State.QUIT);
         this.setActive(false);
     }
 
@@ -90,15 +94,22 @@ public abstract class Room {
         FileParser parser = new FileParser(this.player, this.pet);
         parser.writeSave();
     }
+    
+    //Write to Database
+    protected void updateDB() {
+        //Update in Database
+        dbParse.updateEntities(this.player,this.pet);
+    }
 
     //Returns toMenu
     protected void toMenu() {
-        Main.setState(State.MENU);
+        Main.setPanel(State.MENU);
         endRoom();
     }
 
     //End Room
     protected void endRoom() {
+        updateDB();
         updateSave();
         this.setActive(false);
     }

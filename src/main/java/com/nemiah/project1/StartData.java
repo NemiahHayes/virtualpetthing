@@ -25,18 +25,12 @@ public class StartData extends Room {
 
     public StartData(){
         super(State.STARTUP);
+        //Load Local Saves
         player = Main.loadPlayer();
         pet = Main.loadPet();
+        //Create Database
         dbParse = new DBParse();
     }
-
-//    public boolean validSave() {
-//        if (player.getDungeonLevel() == 0) {
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
 
     public boolean validateNames(String playerName, String petName) {
         //Validate Names
@@ -51,10 +45,14 @@ public class StartData extends Room {
     }
 
     private void setNames(String playerName, String petName) {
-        dbParse.setEntities(player, pet);
-        this.player = dbParse.getPlayer();
-        this.pet = dbParse.getPet();
+        //Set Names
+        player.setName(playerName);
+        pet.setName(petName);
+        //Save Names
+        updateDB();
         updateSave();
+        //Set to Menu
+        toMenu();
     }
 
     private void updateSave() {
@@ -76,8 +74,8 @@ public class StartData extends Room {
 
     //Validate User Input
     public boolean validNames(JTextField playerName, JTextField petName) {
-        String playerInput = playerName.getText();
-        String petInput = petName.getText();
+        String playerInput = playerName.getText().toUpperCase();
+        String petInput = petName.getText().toUpperCase();
         
         return validateNames(playerInput, petInput);
     }

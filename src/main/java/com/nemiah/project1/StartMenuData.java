@@ -52,13 +52,13 @@ public class StartMenuData extends Room {
     //Command List
     //Go to Petroom - pet
     public void toPetRoom() {
-        Main.setState(State.PETROOM);
+        Main.setPanel(State.PETROOM);
         endRoom();
     }
 
     //Go to Dungeon - dungeon
     public void toDungeon() {
-        Main.setState(State.DUNGEON);
+        Main.setPanel(State.DUNGEON);
         endRoom();
     }
 
@@ -74,7 +74,7 @@ public class StartMenuData extends Room {
         System.out.println("New Save Generated. Sending to Startup Screen...");
 
         //Objects overwrite on Room exit
-        Main.setState(State.STARTUP);
+        Main.setPanel(State.STARTUP);
         endRoom();
     }
 

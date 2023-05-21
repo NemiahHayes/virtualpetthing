@@ -6,17 +6,8 @@ package com.nemiah.project1.gui;
 
 import com.nemiah.project1.State;
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import net.miginfocom.swing.MigLayout;
 
 /**
  *
@@ -33,6 +24,9 @@ public class MainFrame {
     }
     
     public void updateRoom(JPanel panel){
+        //Remove Current Panes
+        frame.getContentPane().removeAll();
+        //Add Panel
         frame.add(panel, BorderLayout.CENTER);
     }
     
@@ -56,13 +50,15 @@ public class MainFrame {
         }
     }
     
+    //Start Startup menu
     private void startUp(){
         Startup startup = new Startup();
         updateRoom(startup.getPanel());
         frame.setVisible(true);
     }
     
-    public void startMenu(){
+    //Start startMenu
+    private void startMenu(){
         StartMenu startMenu = new StartMenu();
         updateRoom(startMenu.getPanel());
         frame.setVisible(true);

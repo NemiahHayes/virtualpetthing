@@ -20,7 +20,6 @@ import java.io.IOException;
 public class Main {
 
     private static final FileParser parser = new FileParser();
-    private static State state;
     private static MainFrame frame;
 
     public static void main(String[] args) throws IOException {
@@ -28,8 +27,6 @@ public class Main {
         frame = new MainFrame();
         
         //Validate Saves
-        state = State.STARTUP;
-        StartData startData = new StartData();
         setPanel(State.STARTUP);
     }
     
@@ -59,12 +56,6 @@ public class Main {
             default:
                 break;
         }
-    }
-
-    //Set Game State
-    public static void setState(State changeState) {
-        state = changeState;
-        setPanel(changeState);
     }
 
     //Load Player from File
