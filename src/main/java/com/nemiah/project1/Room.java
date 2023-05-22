@@ -4,6 +4,8 @@
  */
 package com.nemiah.project1;
 
+import com.nemiah.project1.Entities.Pet;
+import com.nemiah.project1.Entities.Player;
 import com.nemiah.project1.database.DBParse;
 import java.util.Set;
 
@@ -74,7 +76,6 @@ public abstract class Room {
     //Stop Game
     public void stopGame() {
         endRoom();
-        dbParse.closeConnection();
         Main.setPanel(State.QUIT);
         this.setActive(false);
     }
@@ -98,7 +99,6 @@ public abstract class Room {
     //Write to Database
     protected void updateDB() {
         //Update in Database
-        dbParse.updateEntities(this.player,this.pet);
     }
 
     //Returns toMenu

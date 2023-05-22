@@ -40,7 +40,7 @@ public class Startup extends RoomGUI{
         JLabel title = setTitle();
         
         //User Prompt Text
-        JLabel askText = setLabel("Please enter Player Name and Pet Name");
+        JLabel askText = setLabel("Please enter Player Name");
         
         //Player Name & Pet Name
         JLabel playerNameLabel = setLabel("Player Name : ");

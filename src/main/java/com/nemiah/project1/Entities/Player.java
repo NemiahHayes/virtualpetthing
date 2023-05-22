@@ -3,30 +3,24 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nemiah.project1;
+package com.nemiah.project1.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Column;
+import java.io.Serializable;
+import javax.persistence.*;
 /**
  *
  * @author nemiah
  */
 @Entity
-@Table(name = "players")
-public class Player {
+@Table(name="players")
+public class Player implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    @Column(nullable = false)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
     private String name;
-    @Column(nullable = false)
     private int dungeonLevel;
-    @Column(nullable = false)
     private int food;
+    private Pet pet;
 
     //Construct Player Class
     public Player(String name, int dungeonLevel, int food) {
@@ -62,6 +56,22 @@ public class Player {
 
     public void setFood(int food) {
         this.food = food;
+    }
+    
+    public int getId(){
+        return id;
+    }
+    
+    public void setId(int id){
+        this.id = id;
+    }
+    
+    public Pet getPet(){
+        return pet;
+    }
+    
+    public void setPet(Pet pet){
+        this.pet = pet;
     }
 
     private void setDefault() {

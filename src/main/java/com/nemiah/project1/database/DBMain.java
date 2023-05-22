@@ -4,103 +4,130 @@
  */
 package com.nemiah.project1.database;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import com.nemiah.project1.Entities.Pet;
+import com.nemiah.project1.Entities.Player;
+import java.util.EnumSet;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.dialect.DerbyDialect;
+import org.hibernate.Transaction;
+import org.hibernate.boot.Metadata;
+import org.hibernate.boot.MetadataSources;
+import org.hibernate.boot.registry.StandardServiceRegistry;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.tool.hbm2ddl.SchemaExport;
+import org.hibernate.tool.schema.TargetType;
+import org.hibernate.tool.schema.spi.SchemaManagementException;
 
 /**
  *
  * @author nemiah
  */
 public class DBMain {
-    
-    private Connection conn;
-    
-    public DBMain(){
-        createConfig();
-        establishConnection();
+
+    private SessionFactory sessionFactory;
+    private final StandardServiceRegistry registry;
+    private Player player;
+    private Pet pet;
+
+    public DBMain(Player player, Pet pet) {
+        this.player = player;
+        this.pet = pet;
+        registry = initRegistry();
+        initializeDB();
     }
-    
-    //Create Hibernate Config
-    private void createConfig(){
-        //Hibernate Properties
-        Configuration config = new Configuration();
-        config.setProperty("hibernate.dialect", DerbyDialect.class.getName());
-        config.setProperty("hibernate.connection.driver_class","org.apache.derby.jdbc.EmbeddedDriver");
-        config.setProperty("hibernate.connection.url","jdbc:derby://localhost:1527/PetSimDB;create=true");
-        config.setProperty("hibernate.connection.username", "pdc");
-        config.setProperty("hibernate.connection.password","pdc");
-        config.setProperty("show_sql","true");
-        
-        //Add annotated classes
-        config.addAnnotatedClass(com.nemiah.project1.Player.class);
-        
-        //Create session factory
-        SessionFactory sessionFactory = config.buildSessionFactory();
-        
+
+    //Getter and Setters
+    public Player getPlayer() {
+        return player;
+    }
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
+    private StandardServiceRegistry initRegistry() {
+        // Create the StandardServiceRegistry
+        return new StandardServiceRegistryBuilder().configure().build();
+    }
+
+    //Initalize DB -- Credit to ChatGPT
+    private void initializeDB() {
+        try {
+            // Create the MetadataSources
+            MetadataSources metadataSources = initMetadata();
+            Metadata metadata = metadataSources.buildMetadata();
+            
+            //Initialize SessionFactory
+            sessionFactory = metadata.buildSessionFactory();
+
+            // Create the schema exporter
+            SchemaExport schemaExport = initSchemaExport();
+
+            //Create export only if table doesn't exist
+            if (!tableExists()) {
+                schemaExport.create(EnumSet.of(TargetType.DATABASE), metadata);
+            }
+            addEntities(player, pet);
+        } catch (SchemaManagementException e) {
+            e.printStackTrace();
+        } finally {
+            // Shutdown the registry
+            StandardServiceRegistryBuilder.destroy(registry);
+        }
+    }
+
+    //Create SchemaExport
+    private SchemaExport initSchemaExport() {
+        SchemaExport schemaExport = new SchemaExport();
+        schemaExport.setHaltOnError(true);
+        schemaExport.setFormat(true);
+        schemaExport.setHaltOnError(true);
+
+        return schemaExport;
+    }
+
+    //Create Metadata
+    private MetadataSources initMetadata() {
+        MetadataSources metadataSources = new MetadataSources(registry);
+        // Add the entity classes
+        metadataSources.addAnnotatedClass(Player.class);
+        metadataSources.addAnnotatedClass(Pet.class);
+        return metadataSources;
+    }
+
+    //Check if Tabes Exist
+    private boolean tableExists() {
+        try (Session session = sessionFactory.openSession()) {
+            session.createNativeQuery("SELECT 1 FROM PLAYERS LIMIT 1").uniqueResult();
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    //Add Players to DB
+    private void addEntities(Player player, Pet pet) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        boolean valid = false;
+        try {
+            tx = session.beginTransaction();
+            session.save(player);
+            session.save(pet);
+            tx.commit();
+            valid = true;
+        } catch (Exception ex) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            System.out.println("Error : " + ex);
+            ex.printStackTrace();
+        }
         sessionFactory.close();
     }
 
-    //Establish connection
-    private void establishConnection() {
-        //Establish a connection to Database
-//        String url = "jdbc:derby://localhost:1527/PetSimDB;create=true";
-//        String user = "pdc";
-//        String password = "pdc";
-//        try{
-//            conn = DriverManager.getConnection(url,user,password);
-//            System.out.println(url + " connected...");
-//        } catch(SQLException ex){
-//            System.err.print(ex);
-//        }
-    }
-    
-    //Close Database Connection
-    public void closeConnections() {
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
+    private void endSession() {
+        sessionFactory.close();
     }
 
-    public ResultSet queryDB(String sql) {
-        Connection connection = this.conn;
-        ResultSet resultSet = null;
-        Statement statement;
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(sql);
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        return resultSet;
-    }
-
-    public void updateDB(String sql) {
-
-        Connection connection = this.conn;
-        Statement statement;
-
-        try {
-            statement = connection.createStatement();
-            statement.executeUpdate(sql);
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-    
-    //Get and Set
-    public Connection getConn(){
-        return this.conn;
-    }
-    
 }

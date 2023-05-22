@@ -6,8 +6,8 @@ package com.nemiah.project1;
 
 import com.nemiah.project1.FileParser;
 import com.nemiah.project1.Main;
-import com.nemiah.project1.Pet;
-import com.nemiah.project1.Player;
+import com.nemiah.project1.Entities.Pet;
+import com.nemiah.project1.Entities.Player;
 import com.nemiah.project1.Room;
 import com.nemiah.project1.State;
 import com.nemiah.project1.database.DBParse;

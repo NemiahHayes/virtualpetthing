@@ -5,11 +5,14 @@
  */
 package com.nemiah.project1;
 
+import com.nemiah.project1.Entities.Pet;
+import com.nemiah.project1.Entities.Player;
 import static com.nemiah.project1.State.DUNGEON;
 import static com.nemiah.project1.State.MENU;
 import static com.nemiah.project1.State.PETROOM;
 import static com.nemiah.project1.State.QUIT;
 import static com.nemiah.project1.State.STARTUP;
+import com.nemiah.project1.database.DBMain;
 import com.nemiah.project1.gui.MainFrame;
 import java.io.IOException;
 
@@ -24,9 +27,14 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        frame = new MainFrame();
+        Player player = loadPlayer();
+        Pet pet = loadPet();
+        pet.setPlayer(player);
+        player.setPet(pet);
         
-        //Validate Saves
+        DBMain dbMain = new DBMain(player, pet);
+        frame = new MainFrame();
+        //Start GUI
         setPanel(State.STARTUP);
     }
     

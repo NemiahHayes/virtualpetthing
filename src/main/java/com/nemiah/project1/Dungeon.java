@@ -5,6 +5,8 @@
  */
 package com.nemiah.project1;
 
+import com.nemiah.project1.Entities.Enemy;
+import com.nemiah.project1.Entities.Pet;
 import static com.nemiah.project1.Commands.ATTACK;
 import static com.nemiah.project1.Commands.DEFEND;
 import static com.nemiah.project1.Commands.HELP;

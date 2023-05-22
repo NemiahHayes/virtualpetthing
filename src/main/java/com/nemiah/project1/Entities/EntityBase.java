@@ -2,13 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.nemiah.project1;
+package com.nemiah.project1.Entities;
 
 /**
  *
  * @author nemiah
  */
-public abstract class Entity {
+public abstract class EntityBase {
     //Name
     private String name;
 
@@ -22,6 +22,10 @@ public abstract class Entity {
 
     //Misc. Stats
     private int level;
+    
+    public EntityBase() {
+        this.setDefault();
+    }
 
     //Getters and Setters
     public String getName() {

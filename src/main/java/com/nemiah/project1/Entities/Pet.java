@@ -2,17 +2,31 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.nemiah.project1;
+package com.nemiah.project1.Entities;
 
+import java.io.Serializable;
+import javax.persistence.*;
 /**
  *
  * @author nemiah
  */
-public class Pet extends Entity{
-
+@Entity
+@Table(name="pets")
+public class Pet extends EntityBase implements Serializable {
     //Misc. Stats
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private int id;
     private int exp, hunger, mood;
-    private String id;
+    
+    @OneToOne(mappedBy="pets")
+    private Player player;
+
+    public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood, int id, Player player) {
+        this(name, health, attack, defense, specialAttack, specialDefense, luck, level, exp, hunger, mood);
+        this.id = id;
+        this.player = player;
+    }
 
     public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood) {
         setName(name);
@@ -26,16 +40,13 @@ public class Pet extends Entity{
         this.exp = exp;
         this.hunger = hunger;
         this.mood = mood;
-        this.id = createID();
     }
 
-    public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood, String id) {
-        this(name,health,attack,defense,specialAttack,specialDefense,luck,level,exp,hunger,mood);
-        this.id = id;
-    }
-    
     public Pet() {
-        this.setDefault();
+        super();
+        this.exp = 0;
+        this.hunger = 0;
+        this.mood = 0;
     }
 
     //Getters and Setters
@@ -58,16 +69,23 @@ public class Pet extends Entity{
     public int getExp() {
         return exp;
     }
-    
-    public String getID(){
-        return this.id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
     
-    //Set Pet ID
-    private String createID(){
-        return Main.loadPlayer().getName();
+    public Player getPlayer(){
+        return player;
     }
     
+    public void setPlayer(Player player){
+        this.player = player;
+    }
+
     //Set EXP value
     public void setExp(int exp) {
         //Compare with EXPLimit
@@ -81,7 +99,7 @@ public class Pet extends Entity{
             levelUp();
         }
     }
-    
+
     //Get EXPLimit based on Pet Level
     private int getExpLimit() {
         int n = getLevel() * (getLevel() + 1) / 2;
