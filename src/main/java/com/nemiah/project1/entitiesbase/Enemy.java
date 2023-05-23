@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.nemiah.project1.Entities;
+package com.nemiah.project1.entitiesbase;
 
-import com.nemiah.project1.Entities.EntityBase;
+import com.nemiah.project1.entitiesbase.EntityBase;
 import java.util.Random;
 
 /**

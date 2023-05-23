@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.nemiah.project1.Entities;
+package com.nemiah.project1.entitiesbase;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -22,10 +22,10 @@ public class Pet extends EntityBase implements Serializable {
     @OneToOne(mappedBy="pets")
     private Player player;
 
-    public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood, int id, Player player) {
-        this(name, health, attack, defense, specialAttack, specialDefense, luck, level, exp, hunger, mood);
-        this.id = id;
+    public Pet(Player player) {
+        this();
         this.player = player;
+        this.id = player.getId();
     }
 
     public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood) {

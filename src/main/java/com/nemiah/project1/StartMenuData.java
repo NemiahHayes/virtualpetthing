@@ -5,8 +5,8 @@
  */
 package com.nemiah.project1;
 
-import com.nemiah.project1.Entities.Pet;
-import com.nemiah.project1.Entities.Player;
+import com.nemiah.project1.entitiesbase.Pet;
+import com.nemiah.project1.entitiesbase.Player;
 import static com.nemiah.project1.Commands.HELP;
 /**
  *

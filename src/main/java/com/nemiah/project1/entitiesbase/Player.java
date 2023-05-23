@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nemiah.project1.Entities;
+package com.nemiah.project1.entitiesbase;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -20,6 +20,7 @@ public class Player implements Serializable {
     private String name;
     private int dungeonLevel;
     private int food;
+    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Pet pet;
 
     //Construct Player Class

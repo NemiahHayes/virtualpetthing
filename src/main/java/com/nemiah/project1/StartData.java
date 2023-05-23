@@ -6,8 +6,9 @@ package com.nemiah.project1;
 
 import com.nemiah.project1.FileParser;
 import com.nemiah.project1.Main;
-import com.nemiah.project1.Entities.Pet;
-import com.nemiah.project1.Entities.Player;
+import static com.nemiah.project1.Main.mainSetEntities;
+import com.nemiah.project1.entitiesbase.Pet;
+import com.nemiah.project1.entitiesbase.Player;
 import com.nemiah.project1.Room;
 import com.nemiah.project1.State;
 import com.nemiah.project1.database.DBParse;
@@ -25,9 +26,6 @@ public class StartData extends Room {
 
     public StartData(){
         super(State.STARTUP);
-        //Load Local Saves
-        player = Main.loadPlayer();
-        pet = Main.loadPet();
         //Create Database
         dbParse = new DBParse();
     }
@@ -43,7 +41,26 @@ public class StartData extends Room {
             return true;
         }
     }
+    
+    //Check if Player Name Exists
+    public boolean validPlayerName(JTextField playerName) {
+        String playerInput = playerName.getText().toUpperCase();
 
+        return validatePlayerExists(playerInput);
+    }
+
+    //Check for Player Name Input
+    public boolean validatePlayerExists(String playerName) {
+        //Update
+        if (playerName.isEmpty()) {
+            return false;
+        } else {
+            player = dbParse.getPlayerDB(playerName);
+            return player != null;
+        }
+    }
+
+    //Check for Player Name in DB
     private void setNames(String playerName, String petName) {
         //Set Names
         player.setName(playerName);
@@ -71,13 +88,31 @@ public class StartData extends Room {
         }
         return confirmText;
     }
-
+    
     //Validate User Input
     public boolean validNames(JTextField playerName, JTextField petName) {
         String playerInput = playerName.getText().toUpperCase();
         String petInput = petName.getText().toUpperCase();
         
         return validateNames(playerInput, petInput);
+    }
+    
+    //Load Related Pet from Database
+    public void loadEntities(){
+        dbParse.loadEntities();
+        player = dbParse.getPlayer();
+        pet = dbParse.getPet();
+    }
+    
+    //Insert Entities
+    public void insertEntities(){
+        dbParse.addEntities();
+    }
+    
+    //Called if Player Exists
+    public void playerExists(){
+        loadEntities();
+        mainSetEntities(player,pet);
     }
 
 }

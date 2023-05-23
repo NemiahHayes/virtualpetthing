@@ -46,7 +46,7 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:derby://localhost:1527/PetSimDB</property>
     <property name="hibernate.connection.username">pdc</property>
     <property name="hibernate.connection.password">pdc</property>
-    <property name="hibernate.hbm2ddl.auto">create</property>
+    <property name="show_sql">true</property>
     <mapping resource="com\nemiah\project1\Entities\player.hbm.xml"/>
     <mapping resource="com\nemiah\project1\Entities\pet.hbm.xml"/>
   </session-factory>

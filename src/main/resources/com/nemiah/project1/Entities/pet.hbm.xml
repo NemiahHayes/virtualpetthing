@@ -4,7 +4,7 @@
     "https://hibernate.org/dtd/hibernate-mapping-3.0.dtd">
 <!-- Generated Nov 12, 2016 12:24:29 PM by Hibernate Tools 3.4.0.CR1 -->
 <hibernate-mapping>
-    <class name="com.nemiah.project1.Entities.Pet" table="pets">
+    <class name="com.nemiah.project1.entitiesbase.Pet" table="pets">
         <id name="id" type="int">
             <column name="pet_id"/>
             <generator class="identity"/>
@@ -42,6 +42,6 @@
         <property name="mood" type="int">
             <column name="mood"/>
         </property>
-        <one-to-one name="player" class="com.nemiah.project1.Entities.Player" cascade="save-update"></one-to-one>
+        <one-to-one name="player" class="com.nemiah.project1.entitiesbase.Player" cascade="save-update"></one-to-one>
     </class>
 </hibernate-mapping>
