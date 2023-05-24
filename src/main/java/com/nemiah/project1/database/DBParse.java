@@ -4,9 +4,11 @@
  */
 package com.nemiah.project1.database;
 
-import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
-import java.util.List;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.UUID;
 
 /**
  *
@@ -14,51 +16,82 @@ import java.util.List;
  */
 public class DBParse {
     
-    DBMain dbMain;
-    Player player;
-    Pet pet;
+    private DBMain dbMain;
+    private final String playerTable = "PLAYER";
     
     public DBParse(){
         dbMain = new DBMain();
     }
-
-    public List<Player> getPlayers(){
-        return dbMain.queryAllPlayers();
+    
+    public void createTable(){
+        try{
+            Statement statement = dbMain.getConnection().createStatement();
+            
+            //Create Table
+            String sqlPlayer = "create table " + playerTable + " (ID varchar(256),"
+                    + "NAME varchar(36),"
+                    + "DUNGEONLEVEL int,"
+                    + "FOOD int)";
+            statement.executeUpdate(sqlPlayer);
+            System.out.println("Player Table Created.");
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
     
-    //Call Player from DB
-    public Player getPlayerDB(String playerName){
-        return dbMain.queryPlayerName(playerName);
+    //Insert Player into Table
+    public void insertPlayer(Player player){
+        try{
+            Statement statement = dbMain.getConnection().createStatement();
+            
+            String uid = player.getUid().toString();
+            //Insert into Table
+            String playerSQL = "insert into " + playerTable + " values('"
+                               + uid + "'"
+                               + ", " + "'" + player.getName() + "', "
+                               + player.getDungeonLevel() + ", "
+                               + player.getFood() + ")";
+            System.out.println(playerSQL);
+            statement.executeUpdate(playerSQL);
+            
+            System.out.println("Player Inserted.");
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
     
-    //Call Pet from DB
-    public Pet getPetDB(int id){
-        return dbMain.queryPetId(id);
-    }
-    
-    //Getters and Setters
-    public Player getPlayer(){
+    public Player queryPlayer(String name){
+        ResultSet resultSet;
+        Player player = null;
+        try{
+            Statement statement = dbMain.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+            
+            String playerQuery = "SELECT * from PLAYER "
+                    + "WHERE NAME = '" + name + "'";
+            
+            resultSet = statement.executeQuery(playerQuery);
+            resultSet.beforeFirst();
+            if (resultSet.next()){
+                //Create UID
+                UUID playerUid = createUID(resultSet.getString("ID"));
+                System.out.println("Player UID : " + playerUid);
+                //Create Player Instance
+                String playerName = resultSet.getString("NAME");
+                int playerDungeonLevel = resultSet.getInt("DUNGEONLEVEL");
+                int playerFood = resultSet.getInt("FOOD");
+                
+                player = new Player(playerName, playerDungeonLevel, playerFood, playerUid);
+            }
+            
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
         return player;
     }
     
-    public void setPlayer(Player player){
-        this.player = player;
-    }
-    
-    public Pet getPet(){
-        return pet;
-    }
-    
-    public void setPet(Pet pet){
-        this.pet = pet;
-    }
-    
-    public void loadEntities(){
-        player = getPlayerDB(player.getName());
-        pet = getPetDB(player.getId());
-    }
-    
-    public void addEntities(){
-        dbMain.addEntities(player, pet);
+    //Create Player UID
+    public UUID createUID(String uidString){
+        UUID uid = UUID.fromString(uidString);
+        return uid;
     }
 }
