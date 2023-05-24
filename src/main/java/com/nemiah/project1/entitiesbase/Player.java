@@ -5,33 +5,36 @@
  */
 package com.nemiah.project1.entitiesbase;
 
-import java.io.Serializable;
-import javax.persistence.*;
+import java.util.UUID;
+
 /**
  *
  * @author nemiah
  */
-@Entity
-@Table(name="players")
-public class Player implements Serializable {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private int id;
+public class Player {
     private String name;
     private int dungeonLevel;
     private int food;
-    @OneToOne(mappedBy = "player", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Pet pet;
+    
+    //UID
+    private UUID uid;
 
     //Construct Player Class
     public Player(String name, int dungeonLevel, int food) {
         this.name = name;
         this.dungeonLevel = dungeonLevel;
         this.food = food;
+        uid = UUID.randomUUID();
+    }
+    
+    public Player(String name, int dungeonLevel, int food, UUID uid){
+        this(name, dungeonLevel, food);
+        this.uid = uid;
     }
 
     public Player() {
         this.setDefault();
+        uid = UUID.randomUUID();
     }
 
     //Getters and Setters
@@ -59,20 +62,12 @@ public class Player implements Serializable {
         this.food = food;
     }
     
-    public int getId(){
-        return id;
+    public UUID getUid(){
+        return uid;
     }
     
-    public void setId(int id){
-        this.id = id;
-    }
-    
-    public Pet getPet(){
-        return pet;
-    }
-    
-    public void setPet(Pet pet){
-        this.pet = pet;
+    public void setUid(UUID uid){
+        this.uid = uid;
     }
 
     private void setDefault() {

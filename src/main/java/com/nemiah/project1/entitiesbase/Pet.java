@@ -4,29 +4,14 @@
  */
 package com.nemiah.project1.entitiesbase;
 
-import java.io.Serializable;
-import javax.persistence.*;
 /**
  *
  * @author nemiah
  */
-@Entity
-@Table(name="pets")
-public class Pet extends EntityBase implements Serializable {
+public class Pet extends EntityBase {
     //Misc. Stats
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
     private int exp, hunger, mood;
-    
-    @OneToOne(mappedBy="pets")
-    private Player player;
-
-    public Pet(Player player) {
-        this();
-        this.player = player;
-        this.id = player.getId();
-    }
 
     public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood) {
         setName(name);
@@ -76,14 +61,6 @@ public class Pet extends EntityBase implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-    
-    public Player getPlayer(){
-        return player;
-    }
-    
-    public void setPlayer(Player player){
-        this.player = player;
     }
 
     //Set EXP value

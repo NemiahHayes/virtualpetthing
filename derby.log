@@ -1,14 +1,13 @@
-Wed May 24 00:46:17 NZST 2023 : Apache Derby Network Server - 10.14.2.0 - (1828579) started and ready to accept connections on port 1527
 ----------------------------------------------------------------
-Wed May 24 00:46:23 NZST 2023:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0188-48a5-4dec-000049a20c69 
-on database directory C:\Users\nemia\Documents\NetBeansProjects\Project1\PetSimDB with class loader sun.misc.Launcher$AppClassLoader@1d44bcfa 
-Loaded from file:/C:/Users/nemia/Documents/netbeans%20workspace/db-derby-10.14.2.0-bin/lib/derby.jar
+Thu May 25 10:22:10 NZST 2023:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0188-4fda-f7e8-00000d801740 
+on database directory C:\Users\nemia\Documents\NetBeansProjects\Project1\derbyDB with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
+Loaded from file:/C:/Users/nemia/.m2/repository/org/apache/derby/derby/10.14.2.0/derby-10.14.2.0.jar
 java.vendor=Oracle Corporation
 java.runtime.version=1.8.0_361-b09
-user.dir=C:\Users\nemia\Documents\netbeans workspace\db-derby-10.14.2.0-bin
+user.dir=C:\Users\nemia\Documents\NetBeansProjects\Project1
 os.name=Windows 10
 os.arch=amd64
 os.version=10.0
-derby.system.home=C:\Users\nemia\Documents\NetBeansProjects\Project1
+derby.system.home=null
 Database Class Loader started - derby.database.classpath=''

@@ -13,6 +13,7 @@ import static com.nemiah.project1.State.PETROOM;
 import static com.nemiah.project1.State.QUIT;
 import static com.nemiah.project1.State.STARTUP;
 import com.nemiah.project1.database.DBMain;
+import com.nemiah.project1.database.DBParse;
 import com.nemiah.project1.gui.MainFrame;
 import java.io.IOException;
 
@@ -28,9 +29,16 @@ public class Main {
     private static Pet pet;
 
     public static void main(String[] args) throws IOException {        
-        frame = new MainFrame();
+        //frame = new MainFrame();
+        
+        DBParse dbParse = new DBParse();
+        dbParse.createTable();
+        player = new Player("PlayerTest",0,10);
+        dbParse.insertPlayer(player);
+        Player qPlayer = dbParse.queryPlayer(player.getName());
+        System.out.println(qPlayer.getName());
         //Start GUI
-        setPanel(State.STARTUP);
+        //setPanel(State.STARTUP);
     }
     
     public static void setPanel(State state){
