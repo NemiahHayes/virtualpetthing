@@ -4,7 +4,7 @@
  */
 package com.nemiah.project1.gui;
 
-import com.nemiah.project1.StartMenuData;
+import com.nemiah.project1.data.StartMenuData;
 import com.nemiah.project1.State;
 import java.awt.Color;
 import java.awt.Font;

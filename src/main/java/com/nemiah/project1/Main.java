@@ -5,6 +5,7 @@
  */
 package com.nemiah.project1;
 
+import com.nemiah.project1.Other.FileParser;
 import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
 import static com.nemiah.project1.State.DUNGEON;
@@ -28,13 +29,13 @@ public class Main {
     private static Player player;
     private static Pet pet;
 
-    public static void main(String[] args) throws IOException {        
+    public static void main(String[] args) throws IOException {    
+        
+        //Initialize 
         //frame = new MainFrame();
         
         DBParse dbParse = new DBParse();
-        dbParse.createTable();
         player = new Player("PlayerTest",0,10);
-        dbParse.insertPlayer(player);
         Player qPlayer = dbParse.queryPlayer(player.getName());
         System.out.println(qPlayer.getName());
         //Start GUI
@@ -71,12 +72,12 @@ public class Main {
 
     //Load Player from File
     public static Player loadPlayer() {
-        return parser.loadPlayerSave();
+        return player;
     }
 
     //Load Pet from File
     public static Pet loadPet() {
-        return parser.loadPetSave();
+        return pet;
     }
     
     //Set Entities
@@ -85,7 +86,7 @@ public class Main {
         mainSetPet(pet);
     }
     
-    private static void mainSetPlayer(Player player){
+    public static void mainSetPlayer(Player player){
         player = player;
     }
     

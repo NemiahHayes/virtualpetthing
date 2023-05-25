@@ -15,8 +15,6 @@ public class Player {
     private String name;
     private int dungeonLevel;
     private int food;
-    
-    //UID
     private UUID uid;
 
     //Construct Player Class

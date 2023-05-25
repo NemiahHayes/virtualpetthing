@@ -4,7 +4,7 @@
  */
 package com.nemiah.project1.gui;
 
-import com.nemiah.project1.StartData;
+import com.nemiah.project1.data.StartData;
 import com.nemiah.project1.State;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -35,7 +35,6 @@ public class Startup extends RoomGUI{
     @Override
     protected void initialize() {
         //Design Panel
-        ;
         panel.setBackground(background);
 
         //Initialize Elements
@@ -54,33 +53,11 @@ public class Startup extends RoomGUI{
 
         //Design Button
         JLabel confirmLabel = new JLabel("");
-        JButton playerConfirmButton = setGenericButton("Confirm");
-        JButton newPlayerConfirmButton = setGenericButton("Confirm");
+        JButton confirmButton = setGenericButton("Confirm");
         
         //Confirm Button Listener
-        playerConfirmButton.addActionListener((ActionEvent e) -> {
-            //Validate Input and Update User Prompt
-            boolean playerFound = checkPlayerExists(playerName);
-            if (playerFound){
-                startData.playerExists();
-            } else {
-                //Avoids Duplicates
-                panel.remove(petNameLabel);
-                panel.remove(petName);
-                panel.remove(newPlayerConfirmButton);
-
-                //Add 
-                panel.add(petNameLabel, "right");
-                panel.add(petName, "wrap, left, grow");
-                panel.add(newPlayerConfirmButton,"wrap, cell 1 4");
-                //Remove Confirm Button
-                panel.remove(playerConfirmButton);
-            }
-        });
-
-        //New Player Confirm Button
-        newPlayerConfirmButton.addActionListener((ActionEvent e) -> {
-            confirmLabel.setText(setConfirmLabelText(playerName, petName));
+        confirmButton.addActionListener((ActionEvent e) -> {
+            confirmLabel.setText(validateNames(playerName, petName));
         });
 
         //Add Elements to Panel
@@ -88,7 +65,9 @@ public class Startup extends RoomGUI{
         panel.add(askText, "wrap, cell 1 1");
         panel.add(playerNameLabel, "right");
         panel.add(playerName, "wrap, left, grow");
-        panel.add(playerConfirmButton, "wrap, cell 1 4");
+        panel.add(petNameLabel,"right");
+        panel.add(petName, "wrap, left, grow");
+        panel.add(confirmButton, "wrap, cell 1 4");
         panel.add(confirmLabel, "cell 1 5");
     }
     
@@ -115,14 +94,11 @@ public class Startup extends RoomGUI{
         return new JTextField(15);
     }
     
-    //Change Confirm Label
-    private String setConfirmLabelText(JTextField playerName, JTextField petName){
-        return startData.validateInput(startData.validNames(playerName,petName));
+    private String validateNames(JTextField playerName, JTextField petName){
+        boolean valid = startData.validateNames(playerName.getText(), petName.getText());
+        if (valid){
+            return "Player Found or Created.";
+        }
+        return "Please Enter a Valid Names.";
     }
-    
-    //Check PlayerName
-    private boolean checkPlayerExists(JTextField playerName){
-        return startData.validPlayerName(playerName);
-    }
-    
 }

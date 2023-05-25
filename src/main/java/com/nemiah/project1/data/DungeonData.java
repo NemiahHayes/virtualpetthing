@@ -3,17 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nemiah.project1;
+package com.nemiah.project1.data;
 
+import com.nemiah.project1.Other.CommandParser;
+import com.nemiah.project1.Other.Commands;
+import com.nemiah.project1.Other.FileParser;
+import com.nemiah.project1.State;
+import com.nemiah.project1.data.Room;
 import com.nemiah.project1.entitiesbase.Enemy;
 import com.nemiah.project1.entitiesbase.Pet;
-import static com.nemiah.project1.Commands.ATTACK;
-import static com.nemiah.project1.Commands.DEFEND;
-import static com.nemiah.project1.Commands.HELP;
-import static com.nemiah.project1.Commands.QUIT;
-import static com.nemiah.project1.Commands.SPECIAL;
-import static com.nemiah.project1.Commands.STOP;
-import static com.nemiah.project1.Commands.UNKNOWN;
+import static com.nemiah.project1.Other.Commands.ATTACK;
+import static com.nemiah.project1.Other.Commands.DEFEND;
+import static com.nemiah.project1.Other.Commands.HELP;
+import static com.nemiah.project1.Other.Commands.QUIT;
+import static com.nemiah.project1.Other.Commands.SPECIAL;
+import static com.nemiah.project1.Other.Commands.STOP;
+import static com.nemiah.project1.Other.Commands.UNKNOWN;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
@@ -24,7 +29,7 @@ import java.util.Scanner;
  *
  * @author nemiah
  */
-public class Dungeon extends Room {
+public class DungeonData extends Room {
 
     //Final Objects and Lists
     private final HashMap<Integer, Enemy> enemyMap = new HashMap();
@@ -48,7 +53,7 @@ public class Dungeon extends Room {
     private int enemyTempDefense;
 
     //Initialize Room with DUNGEON state
-    public Dungeon() {
+    public DungeonData() {
         super(State.DUNGEON);
         //Store Dungeon Level and Pet
         dungeonLevel = getPlayer().getDungeonLevel();

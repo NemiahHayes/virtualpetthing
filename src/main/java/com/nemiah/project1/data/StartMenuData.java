@@ -3,11 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nemiah.project1;
+package com.nemiah.project1.data;
 
+import com.nemiah.project1.Other.CommandParser;
+import com.nemiah.project1.Other.Commands;
+import com.nemiah.project1.Main;
+import com.nemiah.project1.State;
 import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
-import static com.nemiah.project1.Commands.HELP;
+import static com.nemiah.project1.Other.Commands.HELP;
 /**
  *
  * @author nemiah

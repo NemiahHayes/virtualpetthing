@@ -4,16 +4,19 @@
  */
 package com.nemiah.project1.entitiesbase;
 
+import java.util.UUID;
+
 /**
  *
  * @author nemiah
  */
 public class Pet extends EntityBase {
     //Misc. Stats
-    private int id;
+    private UUID uid;
     private int exp, hunger, mood;
 
-    public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, int luck, int level, int exp, int hunger, int mood) {
+    public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, 
+            int luck, int level, int exp, int hunger, int mood) {
         setName(name);
         setHealth(health);
         setAttack(attack);
@@ -25,13 +28,21 @@ public class Pet extends EntityBase {
         this.exp = exp;
         this.hunger = hunger;
         this.mood = mood;
+        this.uid = UUID.randomUUID();
     }
+    
+    public Pet(String name, int health, int attack, int defense, int specialAttack, int specialDefense, 
+            int luck, int level, int exp, int hunger, int mood, UUID uid) {
+            this(name, health, attack, defense, specialAttack, specialDefense, luck, level, exp, hunger, mood);
+            this.uid = uid;
+        }
 
     public Pet() {
         super();
         this.exp = 0;
         this.hunger = 0;
         this.mood = 0;
+        this.uid = UUID.randomUUID();
     }
 
     //Getters and Setters
@@ -55,12 +66,12 @@ public class Pet extends EntityBase {
         return exp;
     }
 
-    public int getId() {
-        return id;
+    public UUID getUid() {
+        return uid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUid(UUID uid) {
+        this.uid = uid;
     }
 
     //Set EXP value

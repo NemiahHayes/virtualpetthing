@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nemiah.project1;
+package com.nemiah.project1.data;
 
-import static com.nemiah.project1.Commands.HELP;
+import com.nemiah.project1.State;
+import static com.nemiah.project1.Other.Commands.HELP;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -13,12 +14,12 @@ import java.util.Scanner;
  *
  * @author nemiah
  */
-public class PetRoomFrame extends Room {
+public class PetRoomData extends Room {
 
     private boolean valid = false;
 
     //Initialize Petroom State
-    public PetRoomFrame() {
+    public PetRoomData() {
         super(State.PETROOM);
     }
 

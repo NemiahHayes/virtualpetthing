@@ -5,6 +5,10 @@
  */
 package com.nemiah.project1;
 
+import com.nemiah.project1.data.Room;
+import com.nemiah.project1.data.StartMenuData;
+import com.nemiah.project1.data.StartData;
+
 /**
  *
  * @author nemiah
