@@ -45,6 +45,15 @@ public class Pet extends EntityBase {
         this.uid = UUID.randomUUID();
     }
 
+    public Pet(String name, UUID uid) {
+        super();
+        this.exp = 0;
+        this.hunger = 0;
+        this.mood = 0;
+        this.setName(name);
+        this.uid = uid;
+    }
+
     //Getters and Setters
     public int getHunger() {
         return hunger;

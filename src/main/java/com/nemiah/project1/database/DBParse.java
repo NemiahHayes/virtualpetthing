@@ -6,6 +6,7 @@ package com.nemiah.project1.database;
 
 import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -17,7 +18,7 @@ import java.util.UUID;
  */
 public class DBParse {
 
-    private DBMain dbMain;
+    private final DBMain dbMain;
     private final String playerTable = "PLAYER";
     private final String petTable = "PET";
 
@@ -28,12 +29,17 @@ public class DBParse {
 
     //Create Tables
     private void createTables() {
-        createPlayerTable();
-        createPetTable();
+        try{
+            createPlayerTable();
+            createPetTable();
+        } catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     private void createPlayerTable() {
         try {
+            System.out.println(dbMain.getConnection());
             Statement statement = dbMain.getConnection().createStatement();
 
             //Create Player Table
@@ -72,23 +78,23 @@ public class DBParse {
         }
     }
 
-    //Query Pet
+    //Query Pet on UUID
     public Pet queryPet(UUID uid) {
-        String uidString = uid.toString();
+        String stringUid = uid.toString();
         ResultSet resultSet;
         Pet pet = null;
         try {
             Statement statement = dbMain.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
             String petQuery = "SELECT * from PET "
-                    + "WHERE ID = '" + uidString + "'";
+                    + "WHERE ID = '" + stringUid + "'";
             resultSet = statement.executeQuery(petQuery);
 
             //Create Pet from Result Set
             resultSet.beforeFirst();
             if (resultSet.next()) {
                 //Create UID
-                UUID petUid = createUID(resultSet.getString("ID"));
+                UUID petUid = UUID.fromString(resultSet.getString("ID"));
                 System.out.println("PET UID : " + petUid + " GIVEN UID : " + uid);
                 //Create Pet Instance
                 String petName = resultSet.getString("NAME");
@@ -109,6 +115,88 @@ public class DBParse {
             ex.printStackTrace();
         }
         return pet;
+    }
+    
+    //Query Pet on String
+    public Pet queryPet(String name) {
+        ResultSet resultSet;
+        Pet pet = null;
+        try {
+            Statement statement = dbMain.getConnection().createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+
+            String petQuery = "SELECT * from PET "
+                    + "WHERE NAME = '" + name + "'";
+            resultSet = statement.executeQuery(petQuery);
+
+            //Create Pet from Result Set
+            resultSet.beforeFirst();
+            if (resultSet.next()) {
+                //Create UID
+                UUID petUid = UUID.fromString(resultSet.getString("ID"));
+                //Create Pet Instance
+                String petName = resultSet.getString("NAME");
+                int petHealth = resultSet.getInt("HEALTH");
+                int petAttack = resultSet.getInt("ATTACK");
+                int petDefense = resultSet.getInt("DEFENSE");
+                int petSPAttack = resultSet.getInt("SPECIAL_ATTACK");
+                int petSPDefense = resultSet.getInt("SPECIAL_DEFENSE");
+                int petLuck = resultSet.getInt("LUCK");
+                int petLevel = resultSet.getInt("LEVEL");
+                int petExp = resultSet.getInt("EXP");
+                int petHunger = resultSet.getInt("HUNGER");
+                int petMood = resultSet.getInt("MOOD");
+
+                pet = new Pet(petName, petHealth, petAttack, petDefense, petSPAttack, petSPDefense, petLuck, petLevel, petExp, petHunger, petMood, petUid);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return pet;
+    }
+    
+    //Update Pet
+    public void updatePet(Pet pet){
+        PreparedStatement pStatement;
+        String petSQL = "UPDATE PET SET NAME=?, HEALTH=?, ATTACK=?, DEFENSE =?, SPECIAL_ATTACK=?, SPECIAL_DEFENSE=?,"
+                + "LUCK=?, LEVEL=?, EXP=?, HUNGER=?, MOOD=? WHERE ID=?";
+        try{
+            pStatement = dbMain.getConnection().prepareStatement(petSQL);
+            pStatement.setString(1,pet.getName());
+            pStatement.setInt(2, pet.getHealth());
+            pStatement.setInt(3, pet.getAttack());
+            pStatement.setInt(4, pet.getDefense());
+            pStatement.setInt(5, pet.getSpecialAttack());
+            pStatement.setInt(6, pet.getSpecialDefense());
+            pStatement.setInt(7, pet.getLuck());
+            pStatement.setInt(8, pet.getLevel());
+            pStatement.setInt(9, pet.getExp());
+            pStatement.setInt(10, pet.getHunger());
+            pStatement.setInt(11, pet.getMood());
+            pStatement.setString(12, pet.getUid().toString());
+            
+            int rowsUpdated = pStatement.executeUpdate();
+            System.out.println("Rows Affected : " + rowsUpdated);
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+    
+    //Update Player
+    public void updatePlayer(Player player){
+        PreparedStatement pStatement;
+        String playerSQL = "UPDATE PLAYER SET NAME=?, DUNGEONLEVEL=?, FOOD=? WHERE ID=?";
+        try{
+            pStatement = dbMain.getConnection().prepareStatement(playerSQL);
+            pStatement.setString(1, player.getName());
+            pStatement.setInt(2, player.getDungeonLevel());
+            pStatement.setInt(3, player.getFood());
+            pStatement.setString(4, player.getUid().toString());
+            
+            int rowsUpdated = pStatement.executeUpdate();
+            System.out.println("Rows Affected : " + rowsUpdated);
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
     }
 
     public void insertPet(Pet pet) {
@@ -174,7 +262,7 @@ public class DBParse {
             resultSet.beforeFirst();
             if (resultSet.next()) {
                 //Create UID
-                UUID playerUid = createUID(resultSet.getString("ID"));
+                UUID playerUid = UUID.fromString(resultSet.getString("ID"));
                 System.out.println("Player UID : " + playerUid);
                 //Create Player Instance
                 String playerName = resultSet.getString("NAME");
@@ -190,9 +278,4 @@ public class DBParse {
         return player;
     }
 
-    //Create Player UID
-    public UUID createUID(String uidString) {
-        UUID uid = UUID.fromString(uidString);
-        return uid;
-    }
 }

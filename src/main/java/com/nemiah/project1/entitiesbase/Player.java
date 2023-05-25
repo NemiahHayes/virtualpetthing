@@ -34,7 +34,12 @@ public class Player {
         this.setDefault();
         uid = UUID.randomUUID();
     }
-
+    
+    public Player(String name){
+        this();
+        this.name = name;
+    }
+    
     //Getters and Setters
     public String getName() {
         return this.name;

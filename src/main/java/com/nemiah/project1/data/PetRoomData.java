@@ -6,7 +6,7 @@
 package com.nemiah.project1.data;
 
 import com.nemiah.project1.State;
-import static com.nemiah.project1.Other.Commands.HELP;
+import static com.nemiah.project1.other.Commands.HELP;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 

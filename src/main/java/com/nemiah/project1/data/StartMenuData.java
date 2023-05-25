@@ -5,13 +5,13 @@
  */
 package com.nemiah.project1.data;
 
-import com.nemiah.project1.Other.CommandParser;
-import com.nemiah.project1.Other.Commands;
+import com.nemiah.project1.other.CommandParser;
+import com.nemiah.project1.other.Commands;
 import com.nemiah.project1.Main;
 import com.nemiah.project1.State;
 import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
-import static com.nemiah.project1.Other.Commands.HELP;
+import static com.nemiah.project1.other.Commands.HELP;
 /**
  *
  * @author nemiah
@@ -45,7 +45,6 @@ public class StartMenuData extends Room {
                 stopGame();
                 break;
             case HELP:
-                printCommands();
                 valid = false;
                 break;
             case UNKNOWN:

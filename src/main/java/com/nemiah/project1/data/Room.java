@@ -4,9 +4,9 @@
  */
 package com.nemiah.project1.data;
 
-import com.nemiah.project1.Other.CommandParser;
-import com.nemiah.project1.Other.Commands;
-import com.nemiah.project1.Other.FileParser;
+import com.nemiah.project1.other.CommandParser;
+import com.nemiah.project1.other.Commands;
+import com.nemiah.project1.other.FileParser;
 import com.nemiah.project1.Main;
 import com.nemiah.project1.State;
 import com.nemiah.project1.entitiesbase.Pet;
@@ -33,7 +33,6 @@ public abstract class Room {
         this.player = Main.loadPlayer();
         this.pet = Main.loadPet();
         setState(state);
-        initializeCommands();
     }
 
     //Starts Room
@@ -86,20 +85,21 @@ public abstract class Room {
     }
 
     //Initialize Command List
-    private void initializeCommands() {
-        commandList = CommandParser.getCommandList(this.getState());
-    }
+    //CLI Only
+//    private void initializeCommands() {
+//        commandList = CommandParser.getCommandList(this.getState());
+//    }
 
-    //Print Command List
-    public void printCommands() {
-        System.out.println(" " + getCommands().toString().replaceAll("\\[|\\]", "").replaceAll(",", "\n"));
-    }
+//    //Print Command List
+//    public void printCommands() {
+//        System.out.println(" " + getCommands().toString().replaceAll("\\[|\\]", "").replaceAll(",", "\n"));
+//    }
 
-    //Write to File
-    private void updateSave() {
-        FileParser parser = new FileParser(this.player, this.pet);
-        parser.writeSave();
-    }
+//    //Write to File
+//    private void updateSave() {
+//        FileParser parser = new FileParser(this.player, this.pet);
+//        parser.writeSave();
+//    }
     
     //Write to Database
     protected void updateDB() {
@@ -115,7 +115,6 @@ public abstract class Room {
     //End Room
     protected void endRoom() {
         updateDB();
-        updateSave();
         this.setActive(false);
     }
 

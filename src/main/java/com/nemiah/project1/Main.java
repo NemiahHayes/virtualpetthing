@@ -5,7 +5,7 @@
  */
 package com.nemiah.project1;
 
-import com.nemiah.project1.Other.FileParser;
+import com.nemiah.project1.other.FileParser;
 import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
 import static com.nemiah.project1.State.DUNGEON;
@@ -13,10 +13,11 @@ import static com.nemiah.project1.State.MENU;
 import static com.nemiah.project1.State.PETROOM;
 import static com.nemiah.project1.State.QUIT;
 import static com.nemiah.project1.State.STARTUP;
-import com.nemiah.project1.database.DBMain;
-import com.nemiah.project1.database.DBParse;
 import com.nemiah.project1.gui.MainFrame;
 import java.io.IOException;
+import java.util.UUID;
+import com.nemiah.project1.database.DBMain;
+import com.nemiah.project1.database.DBParse;
 
 /**
  *
@@ -31,15 +32,35 @@ public class Main {
 
     public static void main(String[] args) throws IOException {    
         
-        //Initialize 
-        //frame = new MainFrame();
-        
+        dbTest();
+//        //Initialize 
+//        frame = new MainFrame();
+//        //Start GUI
+//        setPanel(State.STARTUP);
+    }
+    
+    private static void dbTest(){
         DBParse dbParse = new DBParse();
-        player = new Player("PlayerTest",0,10);
-        Player qPlayer = dbParse.queryPlayer(player.getName());
-        System.out.println(qPlayer.getName());
-        //Start GUI
-        //setPanel(State.STARTUP);
+        Player testPlayer = new Player("Update Twice",13,100, UUID.fromString("ee90ee18-1d08-4015-9922-2aa62bbe1281"));
+        dbParse.updatePlayer(testPlayer);
+        
+        Pet testPet = new Pet("Update Twice", UUID.fromString("ee90ee18-1d08-4015-9922-2aa62bbe1281"));
+        dbParse.updatePet(testPet);
+//        player = new Player("PlayerTest",0,10);
+//        dbParse.insertPlayer(player);
+//        Player qPlayer = dbParse.queryPlayer(player.getName());
+//        System.out.println(qPlayer.getName() + " Successful" + " Player UID : " + qPlayer.getUid());
+//        
+//        pet = new Pet("Pet Test",100,10,10,10,10,10,10,10,10,10,player.getUid());
+//        dbParse.insertPet(pet);
+//        Pet qPet = dbParse.queryPet(pet.getUid());
+//        System.out.println(qPet.getName() + " Successful");
+//        
+//        //Update
+//        player.setName("Update Test");
+//        player.setDungeonLevel(3);
+//        player.setFood(24);
+//        dbParse.updatePlayer(player);
     }
     
     public static void setPanel(State state){
