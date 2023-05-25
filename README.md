@@ -1,7 +1,7 @@
 # virtualpetthing
 For an Assignment
 
-##To Do
+## To Do
 * Dungeon Room
 * Extras for Pet Room
 * Project Set Up File (Less than 1 page)
