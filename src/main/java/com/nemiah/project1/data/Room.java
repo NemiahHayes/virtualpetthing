@@ -25,7 +25,7 @@ public abstract class Room {
     private Pet pet;
     private Set<Commands> commandList;
     protected State state;
-    private final DBParse dbParse;
+    protected final DBParse dbParse;
 
     public Room(State state) {
         this.active = false;
@@ -83,6 +83,7 @@ public abstract class Room {
     //Stop Game
     public void stopGame() {
         endRoom();
+        dbParse.close();
         Main.setPanel(State.QUIT);
         this.setActive(false);
     }
@@ -126,7 +127,6 @@ public abstract class Room {
     protected void endRoom() {
         updateDB();
         updateEntity();
-        dbParse.close();
         this.setActive(false);
     }
 

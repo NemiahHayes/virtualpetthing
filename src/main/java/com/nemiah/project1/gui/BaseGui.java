@@ -4,12 +4,9 @@
  */
 package com.nemiah.project1.gui;
 
-import com.nemiah.project1.data.Room;
 import com.nemiah.project1.State;
 import java.awt.Color;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -19,19 +16,21 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author nemiah
  */
-public abstract class RoomGUI {
+public abstract class BaseGui {
     
     protected JPanel panel;
     protected final Color backgroundColour;
     protected final Color textColour;
     
-    public RoomGUI(State state){
+    public BaseGui(State state){
         //Set Master Data
         //Set Panels
         panel = new JPanel(new MigLayout("", "[center]", ""));
         //Set Colours
         backgroundColour = new Color(42,157,143);
         textColour = new Color(255,255,255);
+        
+        panel.setBackground(backgroundColour);
     }
     
     public JPanel getPanel(){
@@ -56,9 +55,21 @@ public abstract class RoomGUI {
     protected JLabel setGenericLabel(String text) {
         //Set Label Text
         JLabel genericText = new JLabel(text);
-        Font genericFont = new Font(Font.SERIF, Font.PLAIN, 12);
+        Font genericFont = new Font(Font.SANS_SERIF, Font.PLAIN, 12);
+        genericText.setFont(genericFont);
         genericText.setForeground(textColour);
 
         return genericText;
+    }
+    
+    //Set Main Title
+    protected JLabel setTitle(String titleText){
+        //Set Title Text
+        JLabel title = new JLabel(titleText);
+        Font titleFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
+        title.setForeground(textColour);
+        title.setFont(titleFont);
+        
+        return title;
     }
 }

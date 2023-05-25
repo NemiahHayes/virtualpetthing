@@ -19,12 +19,12 @@ import net.miginfocom.swing.MigLayout;
  *
  * @author nemiah
  */
-public class StartMenu extends RoomGUI {
+public class StartMenuGui extends BaseGui {
 
     //Data
     StartMenuData startMenuData;
     
-    public StartMenu() {
+    public StartMenuGui() {
         super(State.MENU);
         startMenuData = new StartMenuData();
         
@@ -34,9 +34,6 @@ public class StartMenu extends RoomGUI {
 
     @Override
     protected void initialize() {
-        //Design Panel
-        panel.setBackground(backgroundColour);
-        
         //Manage Layout
         MigLayout layout = new MigLayout("insets 10 75 10 25", "", "");
         panel.setLayout(layout);
@@ -47,7 +44,7 @@ public class StartMenu extends RoomGUI {
         JLabel petText = setGenericLabel("Pet : " + startMenuData.getPet().getName());
         
         //Title
-        JLabel title = setTitle();
+        JLabel title = setTitle("Dungeon Pet Simulator");
         
         //Dungeon Button
         JButton dungeonButton = setGenericButton("Dungeon");
@@ -91,16 +88,4 @@ public class StartMenu extends RoomGUI {
     private void exitButtonAction(){
         startMenuData.stopGame();
     }
-    
-    //Set Main Title
-    private JLabel setTitle(){
-        //Set Title Text
-        JLabel title = new JLabel("Dungeon Pet Simulator");
-        Font titleFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-        title.setForeground(textColour);
-        title.setFont(titleFont);
-        
-        return title;
-    }
-    
 }

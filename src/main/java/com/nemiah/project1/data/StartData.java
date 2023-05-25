@@ -7,8 +7,6 @@ package com.nemiah.project1.data;
 import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
 import com.nemiah.project1.State;
-import com.nemiah.project1.State;
-import com.nemiah.project1.database.DBParse;
 import java.util.UUID;
 
 /**
@@ -17,12 +15,9 @@ import java.util.UUID;
  */
 public class StartData extends Room {
 
-    DBParse dbParse;
-
     public StartData(){
         super(State.STARTUP);
         //Create Database
-        dbParse = new DBParse();
     }
     
     //Validate Names

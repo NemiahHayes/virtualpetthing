@@ -16,13 +16,13 @@ import javax.swing.JTextField;
  *
  * @author nemiah
  */
-public class Startup extends RoomGUI{
+public class StartupGui extends BaseGui{
     
     //Data
     StartData startData;
     boolean petFound;
     
-    public Startup(){
+    public StartupGui(){
         //Create Variables
         super(State.STARTUP);
         petFound = false;
@@ -34,11 +34,8 @@ public class Startup extends RoomGUI{
     
     @Override
     protected void initialize() {
-        //Design Panel
-        panel.setBackground(backgroundColour);
-
         //Initialize Elements
-        JLabel title = setTitle();
+        JLabel title = setTitle("Dungeon Pet Simulator");
         
         //User Prompt Text
         JLabel askText = setLabel("Please enter Player Name");
@@ -69,17 +66,6 @@ public class Startup extends RoomGUI{
         panel.add(petName, "wrap, left, grow");
         panel.add(confirmButton, "wrap, cell 1 4");
         panel.add(confirmLabel, "cell 1 5");
-    }
-    
-    //Set Main Title
-    private JLabel setTitle(){
-        //Set Title Text
-        JLabel title = new JLabel("Dungeon Pet Simulator");
-        Font titleFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-        title.setForeground(textColour);
-        title.setFont(titleFont);
-        
-        return title;
     }
         
     //Name Labels

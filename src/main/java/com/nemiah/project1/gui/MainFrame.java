@@ -47,20 +47,29 @@ public class MainFrame {
             startUp();
         } else if (state.equals(State.MENU)){
             startMenu();
+        } else if (state.equals(State.PETROOM)){
+            petRoom();
         }
     }
     
     //Start Startup menu
     private void startUp(){
-        Startup startup = new Startup();
+        StartupGui startup = new StartupGui();
         updateRoom(startup.getPanel());
         frame.setVisible(true);
     }
     
     //Start startMenu
     private void startMenu(){
-        StartMenu startMenu = new StartMenu();
+        StartMenuGui startMenu = new StartMenuGui();
         updateRoom(startMenu.getPanel());
+        frame.setVisible(true);
+    }
+    
+    //Start PetRoom
+    private void petRoom(){
+        PetRoomGui petRoom = new PetRoomGui();
+        updateRoom(petRoom.getPanel());
         frame.setVisible(true);
     }
     

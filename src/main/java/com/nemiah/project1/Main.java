@@ -36,11 +36,11 @@ public class Main {
         frame = new MainFrame();
         
         //Testing
-        DBParse dbP = new DBParse();
-        player = dbP.queryPlayer("mystical");
-        pet = dbP.queryPet(player.getUid());
+//        DBParse dbP = new DBParse();
+//        player = dbP.queryPlayer("mystical");
+//        pet = dbP.queryPet(player.getUid());
 //        //Start GUI
-        setPanel(State.MENU);
+        setPanel(State.STARTUP);
     }
     
     public static void setPanel(State state){
@@ -55,7 +55,7 @@ public class Main {
                 break;
             //Enter Pet Room
             case PETROOM:
-                //Null
+                frame.changePanel(PETROOM);
                 break;
             //Enter Dungeon
             case DUNGEON:

@@ -6,9 +6,6 @@
 package com.nemiah.project1.data;
 
 import com.nemiah.project1.State;
-import static com.nemiah.project1.redundant.Commands.HELP;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 
 /**
  *
@@ -16,45 +13,51 @@ import java.util.Scanner;
  */
 public class PetRoomData extends Room {
 
-    private boolean valid = false;
-
     //Initialize Petroom State
     public PetRoomData() {
         super(State.PETROOM);
     }
 
-    //Print Pet Stats
-    private void petStats() {
-        System.out.println("Food : " + getPlayer().getFood());
-        System.out.println();
-        System.out.println("        Pet");
-        System.out.println("---------------------");
-        System.out.println("Name   : " + getPet().getName());
-        System.out.println("Level  : " + getPet().getLevel());
-        System.out.println("Exp    : " + getPet().getExp());
-        System.out.println("Hunger : " + getPet().getHunger());
-        System.out.println("Mood   : " + getPet().getMood());
-        System.out.println("---------------------");
-        System.out.println("Attack         : " + getPet().getAttack());
-        System.out.println("Defense        : " + getPet().getDefense());
-        System.out.println("Spc. Attack    : " + getPet().getSpecialAttack());
-        System.out.println("Spc. Defense   : " + getPet().getSpecialDefense());
-        System.out.println("Luck           : " + getPet().getLuck());
-    }
-
     //Commands List
-    //Rename Pet - "rename"
-    private void namePet() {
-
+    public boolean callCommand(String command){
+        switch (command) {
+            case "play":
+                return playPet();
+            case "feed":
+                return feedPet();
+            case "quit":
+                quitPet();
+                break;
+            default:
+                break;
+        }
+        return false;
     }
 
     //Play with Pet - "play"
-    private void playPet() {
-
+    private boolean playPet() {
+        if (getPet().getHunger() > 0){
+            getPet().setMood(getPet().getMood() + 1);
+            getPet().setHunger(getPet().getHunger() - 1);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     //Feed Pet - "feed"
-    private void feedPet() {
-
+    private boolean feedPet() {
+        if (getPlayer().getFood() > 0){
+            getPet().setHunger(getPet().getHunger() + 1);
+            getPlayer().setFood(getPlayer().getFood() - 1);
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    //Quit Pet = "quit"
+    private void quitPet(){
+        toMenu();
     }
 }

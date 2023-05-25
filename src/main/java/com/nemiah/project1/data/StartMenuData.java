@@ -22,7 +22,6 @@ public class StartMenuData extends Room {
         super(State.MENU);
     }
 
-    //Command List
     //Go to Petroom - pet
     public void toPetRoom() {
         Main.setPanel(State.PETROOM);
@@ -34,21 +33,4 @@ public class StartMenuData extends Room {
         Main.setPanel(State.DUNGEON);
         endRoom();
     }
-
-    //Overwrite File - overwrite
-    private void toOverwrite() {
-        System.out.println("Generating new save file...");
-
-        //Set Objects to Default
-        Player newPlayer = new Player();
-        setPlayer(newPlayer);
-        Pet newPet = new Pet();
-        setPet(newPet);
-        System.out.println("New Save Generated. Sending to Startup Screen...");
-
-        //Objects overwrite on Room exit
-        Main.setPanel(State.STARTUP);
-        endRoom();
-    }
-
 }
