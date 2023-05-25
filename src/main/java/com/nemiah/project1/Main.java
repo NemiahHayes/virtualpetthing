@@ -5,7 +5,7 @@
  */
 package com.nemiah.project1;
 
-import com.nemiah.project1.other.FileParser;
+import com.nemiah.project1.redundant.FileParser;
 import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
 import static com.nemiah.project1.State.DUNGEON;
@@ -31,36 +31,16 @@ public class Main {
     private static Pet pet;
 
     public static void main(String[] args) throws IOException {    
-        
-        dbTest();
 //        //Initialize 
-//        frame = new MainFrame();
-//        //Start GUI
-//        setPanel(State.STARTUP);
-    }
-    
-    private static void dbTest(){
-        DBParse dbParse = new DBParse();
-        Player testPlayer = new Player("Update Twice",13,100, UUID.fromString("ee90ee18-1d08-4015-9922-2aa62bbe1281"));
-        dbParse.updatePlayer(testPlayer);
         
-        Pet testPet = new Pet("Update Twice", UUID.fromString("ee90ee18-1d08-4015-9922-2aa62bbe1281"));
-        dbParse.updatePet(testPet);
-//        player = new Player("PlayerTest",0,10);
-//        dbParse.insertPlayer(player);
-//        Player qPlayer = dbParse.queryPlayer(player.getName());
-//        System.out.println(qPlayer.getName() + " Successful" + " Player UID : " + qPlayer.getUid());
-//        
-//        pet = new Pet("Pet Test",100,10,10,10,10,10,10,10,10,10,player.getUid());
-//        dbParse.insertPet(pet);
-//        Pet qPet = dbParse.queryPet(pet.getUid());
-//        System.out.println(qPet.getName() + " Successful");
-//        
-//        //Update
-//        player.setName("Update Test");
-//        player.setDungeonLevel(3);
-//        player.setFood(24);
-//        dbParse.updatePlayer(player);
+        frame = new MainFrame();
+        
+        //Testing
+        DBParse dbP = new DBParse();
+        player = dbP.queryPlayer("mystical");
+        pet = dbP.queryPet(player.getUid());
+//        //Start GUI
+        setPanel(State.MENU);
     }
     
     public static void setPanel(State state){
@@ -91,28 +71,23 @@ public class Main {
         }
     }
 
-    //Load Player from File
-    public static Player loadPlayer() {
+    //Setters and Getters
+    public static Player getMainPlayer() {
+        System.out.println("Returning : " + player);
         return player;
     }
 
-    //Load Pet from File
-    public static Pet loadPet() {
+    public static Pet getMainPet() {
         return pet;
     }
-    
-    //Set Entities
-    public static void mainSetEntities(Player player, Pet pet){
-        mainSetPlayer(player);
-        mainSetPet(pet);
-    }
-    
-    public static void mainSetPlayer(Player player){
-        player = player;
-    }
-    
-    private static void mainSetPet(Pet pet){
-        pet = pet;
-    }
 
+    public static void setMainPlayer(Player updatePlayer) {
+        player = updatePlayer;
+        System.out.println("Updated : " + player);
+    }
+    
+    public static void setMainPet(Pet updatePet){
+        pet = updatePet;
+    }
+    
 }

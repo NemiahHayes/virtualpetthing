@@ -5,53 +5,21 @@
  */
 package com.nemiah.project1.data;
 
-import com.nemiah.project1.other.CommandParser;
-import com.nemiah.project1.other.Commands;
+import com.nemiah.project1.redundant.CommandParser;
+import com.nemiah.project1.redundant.Commands;
 import com.nemiah.project1.Main;
 import com.nemiah.project1.State;
 import com.nemiah.project1.entitiesbase.Pet;
 import com.nemiah.project1.entitiesbase.Player;
-import static com.nemiah.project1.other.Commands.HELP;
+import static com.nemiah.project1.redundant.Commands.HELP;
 /**
  *
  * @author nemiah
  */
 public class StartMenuData extends Room {
 
-    private boolean valid = false;
-
     public StartMenuData() {
         super(State.MENU);
-    }
-
-    //Translate Command 
-    private void parseInput(Commands cmd) {
-        switch (cmd) {
-            //Room Specific
-            case PET:
-                toPetRoom();
-                break;
-            case DUNGEON:
-                toDungeon();
-                break;
-            case OVERWRITE:
-                toOverwrite();
-                break;
-            //All State Commands
-            case STOP:
-                stopGame();
-                break;
-            case QUIT:
-                stopGame();
-                break;
-            case HELP:
-                valid = false;
-                break;
-            case UNKNOWN:
-                CommandParser.unknownError();
-                valid = false;
-                break;
-        }
     }
 
     //Command List

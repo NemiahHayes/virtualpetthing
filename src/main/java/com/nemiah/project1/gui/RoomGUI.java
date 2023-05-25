@@ -7,9 +7,11 @@ package com.nemiah.project1.gui;
 import com.nemiah.project1.data.Room;
 import com.nemiah.project1.State;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import net.miginfocom.swing.MigLayout;
 
@@ -20,16 +22,16 @@ import net.miginfocom.swing.MigLayout;
 public abstract class RoomGUI {
     
     protected JPanel panel;
-    protected final Color background;
-    protected final Color text;
+    protected final Color backgroundColour;
+    protected final Color textColour;
     
     public RoomGUI(State state){
         //Set Master Data
         //Set Panels
         panel = new JPanel(new MigLayout("", "[center]", ""));
         //Set Colours
-        background = new Color(42,157,143);
-        text = new Color(255,255,255);
+        backgroundColour = new Color(42,157,143);
+        textColour = new Color(255,255,255);
     }
     
     public JPanel getPanel(){
@@ -46,8 +48,17 @@ public abstract class RoomGUI {
         JButton confirmButton = new JButton(buttonText);
         confirmButton.setBorderPainted(true);
         confirmButton.setFocusPainted(false);
-        confirmButton.setBackground(text);
+        confirmButton.setBackground(textColour);
         
         return confirmButton;
+    }
+
+    protected JLabel setGenericLabel(String text) {
+        //Set Label Text
+        JLabel genericText = new JLabel(text);
+        Font genericFont = new Font(Font.SERIF, Font.PLAIN, 12);
+        genericText.setForeground(textColour);
+
+        return genericText;
     }
 }

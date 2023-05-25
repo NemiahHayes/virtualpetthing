@@ -17,8 +17,6 @@ import java.util.UUID;
  */
 public class StartData extends Room {
 
-    private Player player;
-    private Pet pet;
     DBParse dbParse;
 
     public StartData(){
@@ -27,20 +25,24 @@ public class StartData extends Room {
         dbParse = new DBParse();
     }
     
+    //Validate Names
     public boolean validateNames(String playerName, String petName){
         //Get Player
         if (!playerName.isEmpty()){
             Player dbPlayer = queryPlayer(playerName);
             //Player Exists, Skip Pet Check
             if (dbPlayer != null){
+                System.out.println("Loading Player...");
                 loadEntities(dbPlayer);
-                return true;
+                updateEntity();
+                toMenu();
             } else {
                 //Create New Player
                 //Check Pet String, Create new Pet
                 if (!petName.isEmpty()) {
+                    System.out.println("Creating Player...");
                     createEntities(playerName, petName);
-                    return true;
+                    toMenu();
                 } else {
                     //If Pet String is Empty, return false.
                     return false;
@@ -53,12 +55,12 @@ public class StartData extends Room {
     //Load old Entities
     private void loadEntities(Player dbPlayer){
         //Player already Queried
-        this.player = dbPlayer;
-        System.out.println("StartData UID : " + this.player.getUid() + " Name : " + this.player.getName());
+        setPlayer(dbPlayer);
+        System.out.println("StartData UID : " + getPlayer().getUid() + " Name : " + getPlayer().getName());
         
         //Query Pet
-        this.pet = dbParse.queryPet(player.getUid());
-        System.out.println("StartData Pet UID : " + this.pet.getUid() + " Name : " + this.pet.getName());
+        setPet(dbParse.queryPet(getPlayer().getUid()));
+        System.out.println("StartData Pet UID : " + getPet().getUid() + " Name : " + getPet().getName());
     }
     
     //Create new Entities
@@ -73,7 +75,12 @@ public class StartData extends Room {
         dbParse.insertPet(newPet);
 
         setPlayer(newPlayer);
+        System.out.println(newPlayer);
         setPet(newPet);
+        System.out.println(newPet);
+        
+        //Update
+        updateEntity();
     }
 
     //Query Player

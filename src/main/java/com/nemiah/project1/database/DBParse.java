@@ -154,8 +154,14 @@ public class DBParse {
         return pet;
     }
     
+    //Update Entities
+    public void updateEntities(Player player, Pet pet){
+        updatePlayer(player);
+        updatePet(pet);
+    }
+    
     //Update Pet
-    public void updatePet(Pet pet){
+    private void updatePet(Pet pet){
         PreparedStatement pStatement;
         String petSQL = "UPDATE PET SET NAME=?, HEALTH=?, ATTACK=?, DEFENSE =?, SPECIAL_ATTACK=?, SPECIAL_DEFENSE=?,"
                 + "LUCK=?, LEVEL=?, EXP=?, HUNGER=?, MOOD=? WHERE ID=?";
@@ -182,7 +188,7 @@ public class DBParse {
     }
     
     //Update Player
-    public void updatePlayer(Player player){
+    private void updatePlayer(Player player){
         PreparedStatement pStatement;
         String playerSQL = "UPDATE PLAYER SET NAME=?, DUNGEONLEVEL=?, FOOD=? WHERE ID=?";
         try{
@@ -276,6 +282,10 @@ public class DBParse {
             ex.printStackTrace();
         }
         return player;
+    }
+    
+    public void close(){
+        dbMain.closeConnection();
     }
 
 }

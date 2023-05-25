@@ -4,9 +4,9 @@
  */
 package com.nemiah.project1.data;
 
-import com.nemiah.project1.other.CommandParser;
-import com.nemiah.project1.other.Commands;
-import com.nemiah.project1.other.FileParser;
+import com.nemiah.project1.redundant.CommandParser;
+import com.nemiah.project1.redundant.Commands;
+import com.nemiah.project1.redundant.FileParser;
 import com.nemiah.project1.Main;
 import com.nemiah.project1.State;
 import com.nemiah.project1.entitiesbase.Pet;
@@ -30,8 +30,10 @@ public abstract class Room {
     public Room(State state) {
         this.active = false;
         this.dbParse = new DBParse();
-        this.player = Main.loadPlayer();
-        this.pet = Main.loadPet();
+        this.player = Main.getMainPlayer();
+        System.out.println(Main.getMainPlayer());
+        this.pet = Main.getMainPet();
+        System.out.println(Main.getMainPet());
         setState(state);
     }
 
@@ -67,6 +69,7 @@ public abstract class Room {
 
     protected void setPlayer(Player player) {
         this.player = player;
+        System.out.println(player);
     }
 
     public Pet getPet() {
@@ -102,8 +105,15 @@ public abstract class Room {
 //    }
     
     //Write to Database
-    protected void updateDB() {
+    private void updateDB() {
         //Update in Database
+        dbParse.updateEntities(player, pet);
+    }
+    
+    //Update Main Entities
+    protected void updateEntity(){
+        Main.setMainPlayer(player);
+        Main.setMainPet(pet);
     }
 
     //Returns toMenu
@@ -115,6 +125,8 @@ public abstract class Room {
     //End Room
     protected void endRoom() {
         updateDB();
+        updateEntity();
+        dbParse.close();
         this.setActive(false);
     }
 

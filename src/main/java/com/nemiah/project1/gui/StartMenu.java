@@ -35,11 +35,16 @@ public class StartMenu extends RoomGUI {
     @Override
     protected void initialize() {
         //Design Panel
-        panel.setBackground(background);
+        panel.setBackground(backgroundColour);
         
         //Manage Layout
         MigLayout layout = new MigLayout("insets 10 75 10 25", "", "");
         panel.setLayout(layout);
+        
+        //Pet Name and Player Name
+        System.out.println(startMenuData.getPlayer());
+        JLabel playerText = setGenericLabel("Player : " + startMenuData.getPlayer().getName());
+        JLabel petText = setGenericLabel("Pet : " + startMenuData.getPet().getName());
         
         //Title
         JLabel title = setTitle();
@@ -67,6 +72,8 @@ public class StartMenu extends RoomGUI {
         
         //Add Elements to Panel
         panel.add(title, "cell 1 17, width 100, right");
+        panel.add(playerText, "cell 1 18");
+        panel.add(petText,"wrap, cell 1 18");
         panel.add(dungeonButton, "wrap, cell 1 21, width 150, center");
         panel.add(petRoomButton, "wrap, cell 1 22, width 150, center");
         panel.add(exitButton, "wrap, cell 1 23, width 150, center");
@@ -90,7 +97,7 @@ public class StartMenu extends RoomGUI {
         //Set Title Text
         JLabel title = new JLabel("Dungeon Pet Simulator");
         Font titleFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-        title.setForeground(text);
+        title.setForeground(textColour);
         title.setFont(titleFont);
         
         return title;

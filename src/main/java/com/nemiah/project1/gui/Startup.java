@@ -35,7 +35,7 @@ public class Startup extends RoomGUI{
     @Override
     protected void initialize() {
         //Design Panel
-        panel.setBackground(background);
+        panel.setBackground(backgroundColour);
 
         //Initialize Elements
         JLabel title = setTitle();
@@ -76,7 +76,7 @@ public class Startup extends RoomGUI{
         //Set Title Text
         JLabel title = new JLabel("Dungeon Pet Simulator");
         Font titleFont = new Font(Font.SANS_SERIF, Font.BOLD, 20);
-        title.setForeground(text);
+        title.setForeground(textColour);
         title.setFont(titleFont);
         
         return title;
@@ -85,7 +85,7 @@ public class Startup extends RoomGUI{
     //Name Labels
     private JLabel setLabel(String nameLabel) {
         JLabel playerNameLabel = new JLabel(nameLabel);
-        playerNameLabel.setForeground(text);
+        playerNameLabel.setForeground(textColour);
         return playerNameLabel;
     }
     
@@ -95,10 +95,9 @@ public class Startup extends RoomGUI{
     }
     
     private String validateNames(JTextField playerName, JTextField petName){
-        boolean valid = startData.validateNames(playerName.getText(), petName.getText());
-        if (valid){
-            return "Player Found or Created.";
+        if (!startData.validateNames(playerName.getText(), petName.getText())){
+            return "Please Enter Valid Names.";
         }
-        return "Please Enter a Valid Names.";
+        return "";
     }
 }

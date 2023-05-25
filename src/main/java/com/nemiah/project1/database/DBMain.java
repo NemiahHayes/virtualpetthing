@@ -32,12 +32,14 @@ public class DBMain {
 
     //Get Database Connection
     public void connectDB() {
-        try {
-            conn = DriverManager.getConnection(dbAddress + "create=true");
-            System.out.println("Connected.");
-            //DriverManager.getConnection(dbAddress + "shutdown=true");
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+        if (conn == null) {
+            try {
+                conn = DriverManager.getConnection(dbAddress + "create=true");
+                System.out.println("Connected.");
+                //DriverManager.getConnection(dbAddress + "shutdown=true");
+            } catch (SQLException ex) {
+                ex.printStackTrace();
+            }
         }
     }
 

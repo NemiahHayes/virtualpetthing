@@ -5,20 +5,20 @@
  */
 package com.nemiah.project1.data;
 
-import com.nemiah.project1.other.CommandParser;
-import com.nemiah.project1.other.Commands;
-import com.nemiah.project1.other.FileParser;
+import com.nemiah.project1.redundant.CommandParser;
+import com.nemiah.project1.redundant.Commands;
+import com.nemiah.project1.redundant.FileParser;
 import com.nemiah.project1.State;
 import com.nemiah.project1.data.Room;
 import com.nemiah.project1.entitiesbase.Enemy;
 import com.nemiah.project1.entitiesbase.Pet;
-import static com.nemiah.project1.other.Commands.ATTACK;
-import static com.nemiah.project1.other.Commands.DEFEND;
-import static com.nemiah.project1.other.Commands.HELP;
-import static com.nemiah.project1.other.Commands.QUIT;
-import static com.nemiah.project1.other.Commands.SPECIAL;
-import static com.nemiah.project1.other.Commands.STOP;
-import static com.nemiah.project1.other.Commands.UNKNOWN;
+import static com.nemiah.project1.redundant.Commands.ATTACK;
+import static com.nemiah.project1.redundant.Commands.DEFEND;
+import static com.nemiah.project1.redundant.Commands.HELP;
+import static com.nemiah.project1.redundant.Commands.QUIT;
+import static com.nemiah.project1.redundant.Commands.SPECIAL;
+import static com.nemiah.project1.redundant.Commands.STOP;
+import static com.nemiah.project1.redundant.Commands.UNKNOWN;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
