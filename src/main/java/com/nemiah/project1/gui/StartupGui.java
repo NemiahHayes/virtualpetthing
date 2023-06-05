@@ -20,12 +20,10 @@ public class StartupGui extends BaseGui{
     
     //Data
     StartData startData;
-    boolean petFound;
     
     public StartupGui(){
         //Create Variables
         super(State.STARTUP);
-        petFound = false;
         startData = new StartData();
         
         //Create Panel

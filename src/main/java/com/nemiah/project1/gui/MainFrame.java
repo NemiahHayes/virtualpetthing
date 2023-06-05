@@ -49,6 +49,8 @@ public class MainFrame {
             startMenu();
         } else if (state.equals(State.PETROOM)){
             petRoom();
+        } else if (state.equals(State.DUNGEON)){
+            dungeonRoom();
         }
     }
     
@@ -70,6 +72,12 @@ public class MainFrame {
     private void petRoom(){
         PetRoomGui petRoom = new PetRoomGui();
         updateRoom(petRoom.getPanel());
+        frame.setVisible(true);
+    }
+    
+    private void dungeonRoom(){
+        DungeonGui dungeon = new DungeonGui();
+        updateRoom(dungeon.getPanel());
         frame.setVisible(true);
     }
     

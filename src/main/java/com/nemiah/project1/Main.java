@@ -59,7 +59,7 @@ public class Main {
                 break;
             //Enter Dungeon
             case DUNGEON:
-                //Null
+                frame.changePanel(DUNGEON);
                 break;
             //Save and Quit
             case QUIT:

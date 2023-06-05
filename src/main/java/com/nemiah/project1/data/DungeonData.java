@@ -81,6 +81,19 @@ public class DungeonData extends Room {
         dungeonPet.setMood(getPet().getMood());
     }
 
+    public void initializeRound() {
+        //Initialize Pet and Enemy
+        tempDefense = getPet().getDefense();
+        setAnalyze(false);
+        curEnemy = pullEnemy(getPlacing());
+        enemyTempDefense = curEnemy.getDefense();
+    }
+    
+    public void startRound() {
+        enemyTempDefense = curEnemy.getDefense();
+        enemyInput();
+    }
+
     /*Room Main Loop
     @Override
     protected void mainLoop() {
@@ -100,8 +113,8 @@ public class DungeonData extends Room {
                 //Player Goes First
                 getInput();
                 //Enemy Goes Second, Reset Enemy Defense
-                enemyTempDefense = curEnemy.getDefense();
-                enemyInput();
+                
+                
                 //Reset Round Variables
                 resetRound();
 
@@ -225,23 +238,26 @@ public class DungeonData extends Room {
     private Enemy pullEnemy(int id) {
         return enemyMap.get(id);
     }
+    
+    //GUI Behaviour
+    public String getEnemyInput(){
+        return enemyInput();
+    }
 
     //Enemy Behaviour
-    private void enemyInput() {
+    private String enemyInput() {
         switch (curEnemy.getAction()) {
             case ATTACK:
-                enemyAttack();
-                break;
+                return enemyAttack();
             case DEFEND:
-                enemyDefend();
-                break;
+                return enemyDefend();
             case SPECIAL:
-                enemySpecial();
-                break;
+                return enemySpecial();
             default:
                 System.out.println("null");
                 break;
         }
+        return null;
     }
 
     //Get and Set Methods
@@ -249,7 +265,7 @@ public class DungeonData extends Room {
         return this.dungeonLevel;
     }
 
-    private boolean getAnalyze() {
+    public boolean getAnalyze() {
         return this.analyze;
     }
 
@@ -264,37 +280,21 @@ public class DungeonData extends Room {
     private int getPlacing() {
         return this.placing;
     }
-
-    //Get User Input
-    private void getInput() {
-        valid = false;
-        Scanner scanner = new Scanner(System.in);
-        while (!valid) {
-            valid = true;
-            String input = "";
-            try {
-                input = scanner.nextLine();
-            } catch (InputMismatchException e) {
-
-            }
-            Commands cmd = CommandParser.parseCommand(input, getState());
-            parseInput(cmd);
-        }
+    
+    public Enemy getCurEnemy(){
+        return this.curEnemy;
     }
-
+    
     //Translate Input
-    private void parseInput(Commands cmd) {
+    private String parseInput(Commands cmd) {
         switch (cmd) {
             //Room Specific
             case ATTACK:
-                playerAttack();
-                break;
+                return playerAttack();
             case DEFEND:
-                playerDefend();
-                break;
+                return playerDefend();
             case SPECIAL:
-                playerSpecial();
-                break;
+                return playerSpecial();
             case ANALYZE:
                 playerAnalyze();
                 break;
@@ -315,6 +315,7 @@ public class DungeonData extends Room {
                 valid = false;
                 break;
         }
+        return null;
     }
 
     //Stop and Start Rounds
@@ -330,7 +331,15 @@ public class DungeonData extends Room {
     }
 
     //Player Attack - ATTACK
-    private void playerAttack() {
+    private String playerAttack() {
+        //Compute Damage
+        int hploss = calculatePlayerAttack();
+        curEnemy.setHealth(curEnemy.getHealth() - hploss);
+        return printBattleResult(dungeonPet.getName(), hploss, Enemy.Action.ATTACK);
+    }
+    
+    //Calculate Player Attack
+    private int calculatePlayerAttack(){
         int hploss = 0;
         //Get Attack Damage
         if (dungeonPet.getAttack() < enemyTempDefense) {
@@ -347,46 +356,50 @@ public class DungeonData extends Room {
                 hploss += dungeonPet.getAttack() - enemyTempDefense;
             }
         }
-        //Compute Damage
-        curEnemy.setHealth(curEnemy.getHealth() - hploss);
-        printBattleResult(dungeonPet.getName(), hploss, Enemy.Action.ATTACK);
+        return hploss;
     }
 
     //Player Defend - DEFEND
-    private void playerDefend() {
+    private String playerDefend() {
         //Increase Defense by 1.5x
         tempDefense = dungeonPet.getDefense() + (dungeonPet.getDefense() / 2);
-        printBattleResult(dungeonPet.getName(), 0, Enemy.Action.DEFEND);
+        return printBattleResult(dungeonPet.getName(), 0, Enemy.Action.DEFEND);
     }
 
     //Player Special - SPECIAL
-    private void playerSpecial() {
+    private String playerSpecial() {
         //Deal Special Damage, only if Special is availabe
         if (specialCounter >= specialCounterLimit) {
             //Compute Special Damage
-            int defense = curEnemy.getSpecialDefense() / 10;
-            int hploss;
-            if (dungeonPet.getSpecialAttack() <= defense) {
-                hploss = 1;
-            } else {
-                hploss = (dungeonPet.getSpecialAttack() - defense);
-            }
-            //Compute Damge
-            curEnemy.setHealth(curEnemy.getHealth() - hploss);
-            //Reset Special Counter
-            specialCounter = 0;
+            int hploss = calculatePlayerSpecial();
             //Print Message
-            printBattleResult(dungeonPet.getName(), hploss, Enemy.Action.SPECIAL);
+            return printBattleResult(dungeonPet.getName(), hploss, Enemy.Action.SPECIAL);
         } else {
             //If Special is Unavailable, let Player input again
             valid = false;
-            System.out.println("Unable To Attack! Must wait to charge.");
+            return "Unable To Attack! Must wait to charge.";
         }
+    }
+
+    //Calculate Player Special Damage
+    private int calculatePlayerSpecial() {
+        int defense = curEnemy.getSpecialDefense() / 10;
+        int hploss;
+        if (dungeonPet.getSpecialAttack() <= defense) {
+            hploss = 1;
+        } else {
+            hploss = (dungeonPet.getSpecialAttack() - defense);
+        }
+        //Compute Damge
+        curEnemy.setHealth(curEnemy.getHealth() - hploss);
+        //Reset Special Counter
+        specialCounter = 0;
+        return hploss;
     }
 
     //Process Enemy Actions
     //If Enemy Attack
-    private void enemyAttack() {
+    private String enemyAttack() {
         int hploss = 0;
         //Get Damage Dealt
         if (curEnemy.getAttack() < tempDefense) {
@@ -406,19 +419,19 @@ public class DungeonData extends Room {
         //Compute Damage
         dungeonPet.setHealth(dungeonPet.getHealth() - hploss);
         //Print Message
-        printBattleResult(curEnemy.getName(), hploss, Enemy.Action.ATTACK);
+        return printBattleResult(curEnemy.getName(), hploss, Enemy.Action.ATTACK);
     }
 
     //If Enemy Defends
-    private void enemyDefend() {
+    private String enemyDefend() {
         //Compute Defense
         enemyTempDefense = curEnemy.getDefense() + (curEnemy.getDefense() / 2);
         //Print Message
-        printBattleResult(curEnemy.getName(), 0, Enemy.Action.DEFEND);
+        return printBattleResult(curEnemy.getName(), 0, Enemy.Action.DEFEND);
     }
 
     //If Enemy Special
-    private void enemySpecial() {
+    private String enemySpecial() {
         //Compute Special Damage
         int defense = dungeonPet.getSpecialDefense() / 10;
         int hploss;
@@ -430,11 +443,11 @@ public class DungeonData extends Room {
         //Compute Damage
         dungeonPet.setHealth(dungeonPet.getHealth() - hploss);
         //Print Message
-        printBattleResult(curEnemy.getName(), hploss, Enemy.Action.SPECIAL);
+        return printBattleResult(curEnemy.getName(), hploss, Enemy.Action.SPECIAL);
     }
 
     //Display Damage and Turn Damage Results
-    private void printBattleResult(String name, int damage, Enemy.Action action) {
+    private String printBattleResult(String name, int damage, Enemy.Action action) {
         String result = "";
         switch (action) {
             case ATTACK:
@@ -449,7 +462,7 @@ public class DungeonData extends Room {
             default:
                 break;
         }
-        System.out.println(result.toUpperCase());
+        return result;
     }
 
     //Roll Luck for Damage Step

@@ -189,17 +189,18 @@ public class DBParse {
     
     //Update Player
     private void updatePlayer(Player player){
-        PreparedStatement pStatement;
-        String playerSQL = "UPDATE PLAYER SET NAME=?, DUNGEONLEVEL=?, FOOD=? WHERE ID=?";
-        try{
-            pStatement = dbMain.getConnection().prepareStatement(playerSQL);
-            pStatement.setString(1, player.getName());
-            pStatement.setInt(2, player.getDungeonLevel());
-            pStatement.setInt(3, player.getFood());
-            pStatement.setString(4, player.getUid().toString());
-            
-            int rowsUpdated = pStatement.executeUpdate();
-            System.out.println("Rows Affected : " + rowsUpdated);
+            PreparedStatement pStatement;
+            String playerSQL = "UPDATE PLAYER SET NAME=?, DUNGEONLEVEL=?, FOOD=? WHERE ID=?";
+            try{
+                pStatement = dbMain.getConnection().prepareStatement(playerSQL);
+                pStatement.setString(1, player.getName());
+                pStatement.setInt(2, player.getDungeonLevel());
+                pStatement.setInt(3, player.getFood());
+                pStatement.setString(4, player.getUid().toString());
+
+                int rowsUpdated = pStatement.executeUpdate();
+                System.out.println(player.getFood());
+                System.out.println("Rows Affected : " + rowsUpdated);
         } catch(SQLException ex){
             ex.printStackTrace();
         }
@@ -284,7 +285,61 @@ public class DBParse {
         return player;
     }
     
-    public void close(){
+    //Delete Player
+    public void deletePlayer(String name){
+        try {
+            Statement statement = dbMain.getConnection().createStatement();
+
+            String playerSQL = "DELETE from PLAYER "
+                    + "WHERE NAME = '" + name + "'";
+            statement.executeUpdate(playerSQL);
+        } catch(SQLException ex){
+            ex.printStackTrace();
+        }
+    }
+   
+    public void deletePlayer(UUID uid) {
+        String stringUid = uid.toString();
+        try {
+            Statement statement = dbMain.getConnection().createStatement();
+
+            String playerSQL = "DELETE from PLAYER "
+                    + "WHERE ID = '" + stringUid + "'";
+            int rows = statement.executeUpdate(playerSQL);
+            System.out.println("Player Deleted. Rows Affected : " + rows);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    //Delete Player
+    public void deletePet(String name) {
+        try {
+            Statement statement = dbMain.getConnection().createStatement();
+
+            String petSQL = "DELETE from PET "
+                    + "WHERE NAME = '" + name + "'";
+            statement.executeUpdate(petSQL);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void deletePet(UUID uid) {
+        String stringUid = uid.toString();
+        try {
+            Statement statement = dbMain.getConnection().createStatement();
+
+            String petSQL = "DELETE from PET "
+                    + "WHERE ID = '" + stringUid + "'";
+            int rows = statement.executeUpdate(petSQL);
+            System.out.println("Player Deleted. Rows Affected : " + rows);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void close() {
         dbMain.closeConnection();
     }
 
