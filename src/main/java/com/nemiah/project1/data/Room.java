@@ -4,9 +4,6 @@
  */
 package com.nemiah.project1.data;
 
-import com.nemiah.project1.redundant.CommandParser;
-import com.nemiah.project1.redundant.Commands;
-import com.nemiah.project1.redundant.FileParser;
 import com.nemiah.project1.Main;
 import com.nemiah.project1.State;
 import com.nemiah.project1.entitiesbase.Pet;

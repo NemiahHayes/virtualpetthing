@@ -51,11 +51,6 @@ public class Enemy extends EntityBase {
         }
     }
 
-    //Enum for Possible Actions
-    public enum Action {
-        ATTACK, DEFEND, SPECIAL;
-    }
-
     //Enemy Logic
     public Action getAction() {
         boolean verified = false;

@@ -26,6 +26,11 @@ public abstract class EntityBase {
     public EntityBase() {
         this.setDefault();
     }
+    
+    //Enum for Possible Actions
+    public enum Action {
+        ATTACK, DEFEND, SPECIAL;
+    }
 
     //Getters and Setters
     public String getName() {

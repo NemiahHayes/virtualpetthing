@@ -31,6 +31,10 @@ public class DBParseTest {
     
     @AfterAll
     public static void tearDownClass() {
+        instance.deletePet(pet.getUid());
+        instance.deletePlayer(player.getUid());
+        instance.deletePet(pet.getName());
+        instance.deletePlayer(player.getName());
         instance.close();
     }
     
@@ -82,7 +86,7 @@ public class DBParseTest {
      * Test of updateEntities method, of class DBParse.
      */
     @Test
-    public void testUpdateEntitiesPlayer() {
+    public void testUpdateEntitiesPlayerFoodEqualsOneHundred() {
         System.out.println("updateEntities - Player");
         
         instance.insertPlayer(player);
@@ -96,7 +100,7 @@ public class DBParseTest {
     }
     
     @Test
-    public void testUpdateEntitiesPet() {
+    public void testUpdateEntitiesPetAttackEqualsEleven() {
         System.out.println("updateEntities - Pet");
         
         instance.insertPet(pet);
@@ -124,7 +128,7 @@ public class DBParseTest {
     }
     
     @Test
-    public void testInsertPetUUID() {
+    public void testInsertPetUuid() {
         System.out.println("insertPet uuid");
 
         UUID expResult = pet.getUid();
@@ -147,7 +151,7 @@ public class DBParseTest {
     }
     
     @Test
-    public void testInsertPlayerUUID() {
+    public void testInsertPlayerUuid() {
         System.out.println("insertPlayer uuid");
 
         UUID expResult = player.getUid();
