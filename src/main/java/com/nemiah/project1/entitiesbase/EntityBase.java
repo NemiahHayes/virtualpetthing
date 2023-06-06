@@ -23,10 +23,6 @@ public abstract class EntityBase {
     //Misc. Stats
     private int level;
     
-    public EntityBase() {
-        this.setDefault();
-    }
-    
     //Enum for Possible Actions
     public enum Action {
         ATTACK, DEFEND, SPECIAL;
@@ -98,26 +94,7 @@ public abstract class EntityBase {
     }
 
     //Set Default Variables
-    protected void setDefault(){
-        this.name = "name";
-        this.level = 1;
-        setNewHealth();
-        setNewAttack();
-        setNewDefense();
-        setNewSpecialAttack();
-        setNewSpecialDefense();
-        this.luck = 20;
-    }
-
-    //Call on Level up
-    protected void levelUp(){
-        setNewHealth();
-        setNewAttack();
-        setNewDefense();
-        setNewSpecialAttack();
-        setNewSpecialDefense();
-        setNewLuck();
-    }
+    protected abstract void setDefault();
 
     //Level Up Statistics
     //Set Health Based on Level

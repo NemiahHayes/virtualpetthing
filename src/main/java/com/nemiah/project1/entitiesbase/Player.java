@@ -11,7 +11,7 @@ import java.util.UUID;
  *
  * @author nemiah
  */
-public class Player {
+public class Player implements EntityManager{
     private String name;
     private int dungeonLevel;
     private int food;
@@ -65,10 +65,12 @@ public class Player {
         this.food = food;
     }
     
+    @Override
     public UUID getUid(){
         return uid;
     }
     
+    @Override
     public void setUid(UUID uid){
         this.uid = uid;
     }

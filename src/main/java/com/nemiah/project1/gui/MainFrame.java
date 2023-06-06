@@ -31,7 +31,6 @@ public class MainFrame {
     }
     
     private void initialize(){
-        
         String windowTitle = "Dungeon Pet Simulator";
         
         frame = new JFrame();
@@ -43,14 +42,21 @@ public class MainFrame {
      }
     
     public void changePanel(State state){
-        if (state.equals(State.STARTUP)){
-            startUp();
-        } else if (state.equals(State.MENU)){
-            startMenu();
-        } else if (state.equals(State.PETROOM)){
-            petRoom();
-        } else if (state.equals(State.DUNGEON)){
-            dungeonRoom();
+        switch (state) {
+            case STARTUP:
+                startUp();
+                break;
+            case MENU:
+                startMenu();
+                break;
+            case PETROOM:
+                petRoom();
+                break;
+            case DUNGEON:
+                dungeonRoom();
+                break;
+            default:
+                break;
         }
     }
     

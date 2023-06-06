@@ -84,23 +84,6 @@ public abstract class Room {
         Main.setPanel(State.QUIT);
         this.setActive(false);
     }
-
-    //Initialize Command List
-    //CLI Only
-//    private void initializeCommands() {
-//        commandList = CommandParser.getCommandList(this.getState());
-//    }
-
-//    //Print Command List
-//    public void printCommands() {
-//        System.out.println(" " + getCommands().toString().replaceAll("\\[|\\]", "").replaceAll(",", "\n"));
-//    }
-
-//    //Write to File
-//    private void updateSave() {
-//        FileParser parser = new FileParser(this.player, this.pet);
-//        parser.writeSave();
-//    }
     
     //Write to Database
     private void updateDB() {
@@ -126,8 +109,5 @@ public abstract class Room {
         updateEntity();
         this.setActive(false);
     }
-
-    //Rooms Main loop 
-    //protected abstract void mainLoop();
 
 }

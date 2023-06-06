@@ -10,7 +10,7 @@ import java.util.UUID;
  *
  * @author nemiah
  */
-public class Pet extends EntityBase {
+public class Pet extends EntityBase implements EntityManager {
     //Misc. Stats
     private UUID uid;
     private int exp, hunger, mood;
@@ -38,7 +38,7 @@ public class Pet extends EntityBase {
         }
 
     public Pet() {
-        super();
+        setDefault();
         this.exp = 0;
         this.hunger = 0;
         this.mood = 0;
@@ -75,10 +75,12 @@ public class Pet extends EntityBase {
         return exp;
     }
 
+    @Override
     public UUID getUid() {
         return uid;
     }
 
+    @Override
     public void setUid(UUID uid) {
         this.uid = uid;
     }
@@ -95,6 +97,16 @@ public class Pet extends EntityBase {
             this.exp = exp;
             levelUp();
         }
+    }
+    
+    //Call on Level up
+    private void levelUp() {
+        setNewHealth();
+        setNewAttack();
+        setNewDefense();
+        setNewSpecialAttack();
+        setNewSpecialDefense();
+        setNewLuck();
     }
 
     //Get EXPLimit based on Pet Level
@@ -149,6 +161,19 @@ public class Pet extends EntityBase {
         if (this.getLuck() <= 80) {
             this.setLuck(this.getLuck() + 5);
         }
+    }
+    
+    //Set Default
+    @Override
+    protected void setDefault(){
+        setName("name");
+        setLevel(1);
+        setNewHealth();
+        setNewAttack();
+        setNewDefense();
+        setNewSpecialAttack();
+        setNewSpecialDefense();
+        setLuck(20);
     }
 
 }

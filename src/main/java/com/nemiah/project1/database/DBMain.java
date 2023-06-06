@@ -18,8 +18,6 @@ public class DBMain {
     
     private Connection conn;
     private final String dbAddress = "jdbc:derby:derbyDB;";
-    private final String username = "pdc";
-    private final String password = "pdc";
   
     public DBMain() {
         connectDB();
@@ -31,12 +29,11 @@ public class DBMain {
     }
 
     //Get Database Connection
-    public void connectDB() {
+    private void connectDB() {
         if (conn == null) {
             try {
                 conn = DriverManager.getConnection(dbAddress + "create=true");
                 System.out.println("Connected.");
-                //DriverManager.getConnection(dbAddress + "shutdown=true");
             } catch (SQLException ex) {
                 ex.printStackTrace();
             }
@@ -62,7 +59,6 @@ public class DBMain {
         
         Connection connect = conn;
         Statement statement;
-        ResultSet resultSet;
         
         try{
             statement = connect.createStatement();
