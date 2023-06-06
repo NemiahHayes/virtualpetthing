@@ -8,7 +8,6 @@ import com.nemiah.project1.State;
 import com.nemiah.project1.data.Commands;
 import com.nemiah.project1.data.DungeonData;
 import com.nemiah.project1.entitiesbase.Enemy;
-import com.nemiah.project1.entitiesbase.EntityBase;
 import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JLabel;

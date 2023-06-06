@@ -19,13 +19,13 @@ public class PetRoomData extends Room {
     }
 
     //Commands List
-    public boolean callCommand(String command){
+    public boolean callCommand(Commands command) {
         switch (command) {
-            case "play":
+            case PLAY:
                 return playPet();
-            case "feed":
+            case FEED:
                 return feedPet();
-            case "quit":
+            case QUIT:
                 quitPet();
                 break;
             default:
@@ -36,7 +36,7 @@ public class PetRoomData extends Room {
 
     //Play with Pet - "play"
     private boolean playPet() {
-        if (getPet().getHunger() > 0){
+        if (getPet().getHunger() > 0) {
             getPet().setMood(getPet().getMood() + 1);
             getPet().setHunger(getPet().getHunger() - 1);
             return true;
@@ -47,7 +47,7 @@ public class PetRoomData extends Room {
 
     //Feed Pet - "feed"
     private boolean feedPet() {
-        if (getPlayer().getFood() > 0){
+        if (getPlayer().getFood() > 0) {
             getPet().setHunger(getPet().getHunger() + 1);
             getPlayer().setFood(getPlayer().getFood() - 1);
             return true;
@@ -55,9 +55,9 @@ public class PetRoomData extends Room {
             return false;
         }
     }
-    
+
     //Quit Pet = "quit"
-    private void quitPet(){
+    private void quitPet() {
         toMenu();
     }
 }

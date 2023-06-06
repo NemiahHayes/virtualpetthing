@@ -15,5 +15,7 @@ public enum Commands {
     QUIT, 
     ATTACK, 
     DEFEND, 
-    SPECIAL;
+    SPECIAL,
+    FEED,
+    PLAY;
 }
